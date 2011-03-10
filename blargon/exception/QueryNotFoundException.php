@@ -1,0 +1,5 @@
+<?
+class QueryNotFoundException extends Exception
+{
+}
+?>

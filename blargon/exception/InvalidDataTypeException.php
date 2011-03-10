@@ -1,0 +1,5 @@
+<?
+class InvalidDataTypeException extends Exception
+{
+}
+?>
