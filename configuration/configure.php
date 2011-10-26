@@ -1,25 +1,31 @@
-<?
-$connect['host'] = "localhost"; // Host for ArgonNews database.. It's usually localhost
-$connect['user'] = "root";    	// Username for ArgonNews database
-$connect['pass'] = "1m2i3d4f"; 	// Password for ArgonNews database
-$connect['base'] = "websheets";  	// Database where ArgonNews is installed
+<?php
+/** Websheets configuration directives */
 
-// If ArgonNews is located at www.yourdomain.com/argonnews, then "argonnews" would be the value
-$direct = "websheets";	//Directory where argonnews is located
-// This should only be changed if you have multiple installations of ArgonNews on the same database
-$prefix = "blargon";	//Table prefix for this install of ArgonNews
-// This should stay as "bl-MySQL" unless you've purchased another database driver.
-$driver = "bl-MySQL";
+$connect = array(
+	'host' => 'localhost',
+	'user' => 'root', 
+	'pass' => '1m2i3d4f',
+	'base' => 'websheets',
+	// database table-name prefix for this installation
+	'prefix' => 'websheets',
+	// should stay as bl-MySQL unless you've got another driver
+	'driver' => 'bl-MySQL'
+);
 
-// --------------------------------- //
-// Beginning the database connection //
-// --------------------------------- //
+$prefix = $connect['prefix'];
+$driver = $connect['driver'];
 
-require_once 'japha.php';
+/** Sedai configuration directives */
+
+$includeDir = 'templates'; // all templates will be loaded from this directory by default
+$format = '{@},{obj},{->},{key},{;}'; // sets the parsing format to check for calls like @obj->key
+
+/* Beginning the database connection */
+
+require_once dirname(__FILE__).'/japha.php';
 
 import('blargon.factory.DblFactory');
 import('blargon.util.Configuration');
 
 DblFactory::loadUp( $connect, $driver );
 DblFactory::getConn();
-?>

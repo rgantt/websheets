@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.messages');
 
 import('japha.lang.StringBuffer');
@@ -34,4 +34,3 @@ class Message
 		return $this->minLevel;
 	}
 }
-?>

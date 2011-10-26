@@ -1,4 +1,4 @@
-<?
+<?php
 import("japhax.sql.Database");
 
 /**
@@ -153,4 +153,3 @@ class MySQLImproved extends Database
 		return $this->linkId;
 	}
 }
-?>

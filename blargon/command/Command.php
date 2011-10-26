@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.command');
 
 abstract class Command
@@ -35,4 +35,3 @@ abstract class Command
 	
 	abstract public function init( $lang );
 }
-?>

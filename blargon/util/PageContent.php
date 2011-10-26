@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('japha.lang.StringBuffer');
@@ -106,4 +106,3 @@ class PageContent
 		echo $this->footer->toString();
 	}
 }
-?>

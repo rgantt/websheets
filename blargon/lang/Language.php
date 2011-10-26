@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.lang');
 
 import('blargon.factory.ConfigFactory');
@@ -80,4 +80,3 @@ class Language
 		return $text;
 	}
 }
-?>

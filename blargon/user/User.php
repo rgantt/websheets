@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.user');
 
 import('blargon.factory.DblFactory');
@@ -114,4 +114,3 @@ abstract class User
 		return $this->doWrite( 'avatar', $avatar );
 	}
 }
-?>

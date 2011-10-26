@@ -1,4 +1,4 @@
-<?
+<?php
 function installedLanguage( $lang )
 {
 	if( is_dir( 'language/'.$lang ) )
@@ -7,4 +7,3 @@ function installedLanguage( $lang )
 	}
 	return false;
 }
-?>

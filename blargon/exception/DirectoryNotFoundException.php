@@ -1,5 +1,2 @@
-<?
-class DirectoryNotFoundException extends Exception
-{
-}
-?>
+<?php
+class DirectoryNotFoundException extends Exception {}

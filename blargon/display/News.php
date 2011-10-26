@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('blargon.display.Display');
@@ -353,4 +353,3 @@ class News extends Display
 		return $this->replaces('%');
 	}
 }
-?>

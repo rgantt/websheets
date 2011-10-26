@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.util');
 
 import('blargon.factory.ConfigFactory');
@@ -18,4 +18,3 @@ class ThemeChooser
 		return 'templates/'.$this->theme;
 	}
 }
-?>

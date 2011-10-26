@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.jdbl');
 
 import('blargon.factory.DblFactory');
@@ -71,4 +71,3 @@ class PreparedQueryHandler
 		}
 	}
 }
-?>

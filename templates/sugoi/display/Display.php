@@ -1,4 +1,4 @@
-<?
+<?php
 $template['addComment'] = <<< END
 <form action="@var->site;@var->page;?comments=save&post=@var->post;" method="post">
 <input type="hidden" name="parent" value="@var->parent;"/>
@@ -47,4 +47,3 @@ $template['readComment'] = <<<END
 	</tr>
 </table>
 END;
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 package('sedai.helper');
 
 import('sedai.helper.Helper');
@@ -25,4 +25,3 @@ class VariableHelper extends Helper
 		}
 	}
 }
-?>

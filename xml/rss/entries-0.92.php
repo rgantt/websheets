@@ -1,4 +1,4 @@
-<?
+<?php
 header("Content-type: application/xml");
 
 require_once '../../configuration/configure.php';

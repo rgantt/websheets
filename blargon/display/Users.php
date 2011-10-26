@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('blargon.display.Display');
@@ -170,4 +170,3 @@ class Users extends Display
 		}
 	}
 }
-?>

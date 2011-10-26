@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('blargon.display.Display');
@@ -81,4 +81,3 @@ class Board extends Display
 		return $this->lang->message( 'adminBoard', 'default' );
 	}
 }
-?>

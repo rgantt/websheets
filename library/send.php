@@ -1,5 +1,4 @@
-<?
-
+<?php
 require(dirname(__FILE__) . '/configure.php');
 require(dirname(__FILE__) . '/connect.php');
 require(dirname(__FILE__) . '/class/main.php');
@@ -26,7 +25,7 @@ if($_GET['send'] == ''){
 	</tr>
 </table>
 </form>
-<?
+<?php
 } else {
 $getPost = mysql_query("SELECT * FROM an_news WHERE id='{$_GET['post']}'") or die(mysql_error());
 $post = mysql_fetch_object($getPost);
@@ -51,4 +50,3 @@ print("The news was successfully sent.<br/><a href=\"$conf->siteUrl\">Back to th
 
 }
 $admin->footer();
-?>

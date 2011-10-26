@@ -1,4 +1,4 @@
-<?
+<?php
 $template['board'] = <<<END
 <form method="post" action="index.php?go=board&page=saveEntry">
 	<table cellpadding="5" cellspacing="5" style="width:440px;">
@@ -27,4 +27,3 @@ $template['board'] = <<<END
 	</table>
 </form>
 END;
-?>

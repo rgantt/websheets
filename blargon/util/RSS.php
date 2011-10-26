@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.util');
 
 import('blargon.factory.ConfigFactory');
@@ -77,4 +77,3 @@ class RSS
 		return false;
 	}
 }
-?>

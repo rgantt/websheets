@@ -1,4 +1,4 @@
-<?
+<?php
 $lang['step2']['message']['introduction'] 	= 'Welcome to the <span style="color:red;">Blargon installation utility</span>!<p/>This program will guide you through the steps required to get Blargon up and running on your server.<p/>When you are ready to begin, please press Next.';
 
 $lang['step3']['message']['introduction'] 	= 'Before we can begin, you must make sure that you go into your <span style="color:red;">blargon</span> installation folder, and then the <span style="color:red;">configuration</span> folder, and open the file named <span style="color:red;">configure.php</span>.<p/>Be sure to edit the following fields, updating them to reflect the settings as they are for your own server: <span style="color:red;">user, host, pass, base</span>. These are the options that will tell blargon where to install, as well as provide a way for blargon to connect to your database in the future. Also be sure to edit <span style="color:red;">path</span> and <span style="color:red;">direct</span>, if your installation folder is not named "blargon".<p/>If you want to set up more than one instance of Blargon, be sure to change the <span style="color:red;">prefix</span> to something unique for each directory you install from.<p/>After you have edited <span style="color:red;">configure.php</span>, please press Next.';
@@ -42,4 +42,3 @@ $lang['general']['message']['continue'] 	= 'To continue, please press Next.';
 $lang['general']['message']['userName'] 	= 'Username: ';
 $lang['general']['message']['password'] 	= 'Password: ';
 $lang['general']['message']['repeatPass'] 	= 'Repeat Password: ';
-?>

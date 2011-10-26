@@ -1,4 +1,4 @@
-<?
+<?php
 package("core");
 
 /**
@@ -698,4 +698,3 @@ if( isset( $_GET['JAPHA-31337-6047-34732'] ) )
     Japhainfo::credits(); 
     die(); 
 }
-?>

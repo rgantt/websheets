@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.factory');
 
 import('blargon.jdbl.DblException');
@@ -39,4 +39,3 @@ class DblFactory
 		return self::$conn;
 	}
 }
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once 'configuration/configure.php';
 require_once 'configuration/japha.php';
 require_once 'global.php';
@@ -113,7 +113,7 @@ else
   </table>
   </form>
   <div class="loginBody">ryan gantt <sup>2002-2009</sup></div>
-  <?
+  <?php
   if( isset( $_GET['error'] ) )
   {
     echo "<p/><div class=\"loginError\">".$_GET['error']."</div>\n";
@@ -124,6 +124,6 @@ else
   </table>
   </body>
   </html>
-<?
+<?php
 }
 ?>

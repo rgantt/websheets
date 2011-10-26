@@ -1,4 +1,4 @@
-<?
+<?php
 package('sedai.helper');
 
 import('blargon.factory.ConfigFactory');
@@ -23,4 +23,3 @@ class ConfigHelper extends Helper
 		return $this->instance->get( $key );
 	}
 }
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 $template['addNews'] = <<<END
 <form name="newsForm"action="index.php?go=news&page=build" method="post">
 <input type="hidden" name="time" value="@var->time;"/>
@@ -101,4 +101,3 @@ END;
 $template['replaces'] = <<<END
 <br/>There are no entries yet. If you are a registered user, you may login and <a href="@config->siteUrl;/@config->installDir;/index.php?go=news&page=add">post something</a>
 END;
-?>

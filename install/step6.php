@@ -1,4 +1,4 @@
-<?
+<?php
 function doAction()
 {
 	global $lang, $config, $db;
@@ -66,4 +66,3 @@ function redIt( $message )
 {
 	return '<span style="color:red;">'.$message.'</span>';
 }
-?>

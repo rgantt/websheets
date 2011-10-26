@@ -1,4 +1,4 @@
-<?
+<?php
 require(dirname(__FILE__) . '/configure.php');
 require(dirname(__FILE__) . '/connect.php');
 
@@ -50,4 +50,3 @@ function replaces()
 
 
 	replaces();
-?>	

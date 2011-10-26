@@ -1,4 +1,4 @@
-<?
+<?php
 $template['config'] = <<<END
 <form name="config" action="index.php?go=configuration&page=save" method="post">
 	<table cellpadding="5" cellspacing="0" border="0" style="width:450px;">
@@ -169,4 +169,3 @@ $template['config'] = <<<END
 	</table>
 </form>
 END;
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.jdbl');
 
 import('blargon.factory.ConfigFactory');
@@ -36,4 +36,3 @@ class PreparedQueryLoader
 		throw new QueryNotFoundException('Could not find query for method '.$this->method.' with key '.$key.'!');
 	}
 }
-?>

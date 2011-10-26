@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.messages');
 
 import('japha.util.Stack');
@@ -11,4 +11,3 @@ class MessageStack extends Stack
 		parent::push( $object );
 	}
 }
-?>

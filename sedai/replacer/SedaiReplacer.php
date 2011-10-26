@@ -1,4 +1,4 @@
-<?
+<?php
 package('sedai.replacer');
 
 import('sedai.helper.*');
@@ -101,4 +101,3 @@ class SedaiReplacer
 		return $this->getHaystack();
 	}
 }
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 import('blargon.util.PageContent');
 
 import('blargon.command.*');
@@ -41,4 +41,3 @@ class FrontController
 		$view->render();
 	}
 }
-?>

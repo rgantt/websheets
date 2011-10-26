@@ -1,4 +1,4 @@
-<?
+<?php
 $template['head'] = <<<END
 <html>
 <head>
@@ -23,4 +23,3 @@ END;
 $template['showTime'] = <<<END
 <div style="font-family:verdana; font-size:9px; color:#ff0000;">page generated in @var->time; seconds</div>
 END;
-?>

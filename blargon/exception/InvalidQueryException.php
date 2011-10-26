@@ -1,5 +1,2 @@
-<?
-class InvalidQueryException extends Exception
-{
-}
-?>
+<?php
+class InvalidQueryException extends Exception {}

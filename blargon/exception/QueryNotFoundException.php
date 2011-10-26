@@ -1,5 +1,2 @@
-<?
-class QueryNotFoundException extends Exception
-{
-}
-?>
+<?php
+class QueryNotFoundException extends Exception {}

@@ -1,4 +1,4 @@
-<?
+<?php
 $inserts = array(
 	'a' => "insert into {0}_emote ( emote, image ) values (':)', 'icon_smile.gif')",
 	'b' => "insert into {0}_emote ( emote, image ) values (';)', 'icon_wink.gif')",
@@ -35,4 +35,3 @@ $inserts = array(
 	'default configuration' => "insert into {0}_config ( entry, value ) values ( 'numEdit', '10' )",
 	'default user board entry' => "insert into {0}_board ( time, user, entry ) values ( '".time()."', '1', 'Welcome to Blargon' )"
 );
-?>

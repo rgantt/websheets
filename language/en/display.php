@@ -1,4 +1,4 @@
-<?
+<?php
 // Template language keys //
 // ---------------------- //
 $lang['addComment']['message']['yourName'] 		= 'Your Name';
@@ -13,4 +13,3 @@ $lang['readComment']['message']['subject'] 		= 'Subject';
 $lang['readComment']['message']['comment'] 		= 'Comment';
 $lang['readComment']['message']['returnToNews'] 	= 'Return to the News';
 $lang['readComment']['message']['otherComments']	= 'View the other Comments';
-?>

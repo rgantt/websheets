@@ -1,4 +1,4 @@
-<?
+<?php
 import("japhax.sql.Database");
 
 /**
@@ -140,4 +140,3 @@ class PostgreSQL extends Database
 		return $this->linkId;
 	}
 }
-?>

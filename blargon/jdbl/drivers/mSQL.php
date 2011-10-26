@@ -1,4 +1,4 @@
-<?
+<?php
 import("japhax.sql.Database");
 
 /**
@@ -139,4 +139,3 @@ class mSQL extends Database
 		return $this->linkId;
 	}
 }
-?>

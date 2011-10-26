@@ -1,4 +1,4 @@
-<?
+<?php
 $template['edit'] = <<<END
 <form method="post" action="index.php?go=comments&page=save&postid=@var->post;&id=@var->id;&save=yes">
 	<table>
@@ -38,4 +38,3 @@ $template['viewPosts'] = <<< END
 	</tr>
 </table>
 END;
-?>

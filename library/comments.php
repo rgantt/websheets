@@ -1,4 +1,4 @@
-<?
+<?php
 $config = ConfigFactory::getConfig();
 
 require_once 'blargon/display/Site.php';
@@ -116,4 +116,3 @@ class Comments
 		return $this->temp->createViewer( $replacer );
 	}
 }
-?>

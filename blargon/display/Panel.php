@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('japha.lang.StringBuffer');
@@ -90,4 +90,3 @@ class Panel extends Display
 		return $this->template->createViewer( $replacer );
 	}
 }
-?>

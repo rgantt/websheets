@@ -1,4 +1,4 @@
-<?
+<?php
 package('sedai');
 
 import('sedai.parser.SedaiParser');
@@ -76,4 +76,3 @@ class Sedai
 		return $replacer->view();
 	}
 }
-?>

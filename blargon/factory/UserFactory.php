@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.factory');
 
 import('blargon.factory.DblFactory');
@@ -34,4 +34,3 @@ class UserFactory
 		}
 	}
 }
-?>

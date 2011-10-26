@@ -1,4 +1,4 @@
-<?
+<?php
 package('sedai.helper');
 
 abstract class Helper
@@ -13,4 +13,3 @@ abstract class Helper
 	abstract public function getInstance();
 	abstract public function get( $key );
 }
-?>

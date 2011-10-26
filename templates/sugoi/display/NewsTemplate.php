@@ -1,4 +1,4 @@
-<?
+<?php
 $template['mainTemplate'] = <<< END
 <form name="editTemplate" method="post" action="index.php?go=template&page=saveMain">
 	<table width="100%">
@@ -64,4 +64,3 @@ $template['userTemplate'] = <<< END
 	</table>
 </form>
 END;
-?>

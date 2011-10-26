@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('blargon.display.Display');
@@ -92,4 +92,3 @@ class NewsTemplate extends Display
 		return $this->lang->success( 'saveUserTemplate', 'default' ) . '<br><a href="index.php">Back to Control Panel</a>';
 	}
 }
-?>

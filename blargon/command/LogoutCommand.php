@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.controller');
 
 import('blargon.command.Command');
@@ -12,4 +12,3 @@ class LogoutCommand extends Command
 		header( 'Location: index.php' );
 	}
 }
-?>

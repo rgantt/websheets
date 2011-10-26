@@ -1,4 +1,4 @@
-<?
+<?php
 package('sedai.parser');
 
 class SedaiParser
@@ -61,4 +61,3 @@ class SedaiParser
 		return $cmd;
 	}
 }
-?>

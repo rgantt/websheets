@@ -1,4 +1,4 @@
-<?
+<?php
 package('sedai.helper');
 
 import('blargon.lang.Language');
@@ -25,4 +25,3 @@ class LanguageHelper
 		return $this->instance->message( $this->method, $key );
 	}
 }
-?>

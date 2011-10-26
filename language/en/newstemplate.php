@@ -1,4 +1,4 @@
-<?
+<?php
 // public function saveMainTemplate()
 $lang['saveMainTemplate']['success']['default'] 	= 'The news template was successfully updated.';
 
@@ -39,4 +39,3 @@ $lang['mainTemplate']['message']['catIcon'] 		= 'Category Icon';
 $lang['mainTemplate']['message']['seeCom'] 		= 'See Comments';
 $lang['mainTemplate']['message']['adCom'] 		= 'Add Comments';
 $lang['mainTemplate']['message']['avatar'] 		= 'User Avatar';
-?>

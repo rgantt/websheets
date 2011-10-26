@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('blargon.display.Display');
@@ -136,4 +136,3 @@ class Category extends Display
 		return $this->template->createViewer( $replacer );
 	}
 }
-?>

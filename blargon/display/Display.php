@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('blargon.lang.Language');
@@ -69,4 +69,3 @@ abstract class Display
 		$this->lang = new Language( $lang, get_class( $this ) );
 	}
 }
-?>

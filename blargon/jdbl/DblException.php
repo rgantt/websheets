@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.jdbl');
 
 /**
@@ -22,4 +22,3 @@ class DblException extends Exception
 		$this->message = $message;
 	}
 }
-?>

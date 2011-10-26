@@ -1,4 +1,4 @@
-<?
+<?php
 // public function doComments()
 $lang['doComments']['message']['noComments'] 	= 'There are currently no comments for this post.';
 $lang['doComments']['success']['edited'] 	= 'The comment was successfully edited.';
@@ -17,4 +17,3 @@ $lang['viewPosts']['message']['id'] 		= 'Id';
 $lang['viewPosts']['message']['subject'] 	= 'Subject';
 $lang['viewPosts']['message']['com'] 		= 'Count';
 $lang['viewPosts']['message']['total'] 		= 'Total posts in database';
-?>

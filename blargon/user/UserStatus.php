@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.user');
 
 import('blargon.factory.DblFactory');
@@ -34,4 +34,3 @@ class UserStatus
 		}
 	}
 }
-?>

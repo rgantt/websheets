@@ -1,4 +1,4 @@
-<?
+<?php
 header("Content-type: application/xml");
 ?>
 <?="<?xml version=\"1.0\"?".">"?>

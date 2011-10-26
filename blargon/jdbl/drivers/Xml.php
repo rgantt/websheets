@@ -1,4 +1,4 @@
-<?
+<?php
 import("japhax.sql.Database");
 
 /**
@@ -87,4 +87,3 @@ class Xml extends Database
 		return $this->linkId;
 	}
 }
-?>

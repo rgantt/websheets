@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.util');
 
 import('blargon.factory.ConfigFactory');
@@ -53,4 +53,3 @@ class Entry
 		return;
 	}
 }
-?>

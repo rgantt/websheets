@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('blargon.factory.DblFactory');
@@ -47,4 +47,3 @@ class Configuration
 		return '';
 	}
 }
-?>

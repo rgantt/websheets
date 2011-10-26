@@ -1,4 +1,4 @@
-<?
+<?php
 require_once 'configuration/configure.php';
 require_once 'configuration/japha.php';
 
@@ -38,4 +38,3 @@ function showNews( $user='%' )
 		echo $comments->doAction();
 	}
 }
-?>

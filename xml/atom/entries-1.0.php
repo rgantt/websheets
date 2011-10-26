@@ -1,4 +1,4 @@
-<?
+<?php
 header('Content-type: application/atom+xml');
 
 require_once '../../configuration/configure.php';

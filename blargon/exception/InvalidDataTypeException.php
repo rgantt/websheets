@@ -1,5 +1,2 @@
-<?
-class InvalidDataTypeException extends Exception
-{
-}
-?>
+<?php
+class InvalidDataTypeException extends Exception {}

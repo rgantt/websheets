@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.class');
 
 import('japha.lang.Class');
@@ -122,4 +122,3 @@ class DataLayer
 		return $this->driverInstance->get_error();
 	}
 }
-?>

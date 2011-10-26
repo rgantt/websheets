@@ -1,4 +1,4 @@
-<?
+<?php
 package('sedai.helper');
 
 import('sedai.helper.Helper');
@@ -24,4 +24,3 @@ class UserHelper extends Helper
 		return $this->user->$method();
 	}
 }
-?>

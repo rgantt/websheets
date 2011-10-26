@@ -1,4 +1,4 @@
-<?
+<?php
 $global['days'] = array( 
 	'Monday' => 'Monday', 
 	'Tuesday' => 'Tuesday', 
@@ -23,4 +23,3 @@ $global['months'] = array(
 	'November' => 'November', 
 	'December' => 'December' 
 );
-?>

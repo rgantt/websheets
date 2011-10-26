@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('blargon.display.Display');
@@ -104,4 +104,3 @@ class Site extends Display
 		}
 	}
 }
-?>

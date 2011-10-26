@@ -1,4 +1,4 @@
-<?
+<?php
 function doAction()
 {
 	$newsTemplateData = "<table>\n";	
@@ -19,4 +19,3 @@ function doAction()
 	$content .= '<div align="center">[ <a target="_blank" href="../include/key/template.php">Template Keys</a> ]</div>';
 	return array( $content, 0, true );
 }
-?>

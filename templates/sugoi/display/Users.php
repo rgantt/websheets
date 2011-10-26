@@ -1,4 +1,4 @@
-<?
+<?php
 $template['editUser'] = <<<END
 <form method="post" action="index.php?go=user&page=doEdit">
 	<table cellpadding="4" cellspacing="0" border="0">
@@ -122,4 +122,3 @@ $template['uploadAvatar'] = <<<END
 	</table>
 </form>
 END;
-?>

@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon');
 
 import('blargon.display.Display');
@@ -37,4 +37,3 @@ class Includes extends Display
 		return $this->template->createViewer( $replacer );
 	}
 }
-?>

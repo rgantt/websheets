@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.factory');
 
 import('blargon.util.Configuration');
@@ -22,4 +22,3 @@ class ConfigFactory
 		return self::$conf;
 	}
 }
-?>

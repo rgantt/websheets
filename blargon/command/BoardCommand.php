@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.controller');
 
 import('blargon.command.Command');
@@ -11,4 +11,3 @@ class BoardCommand extends Command
 		$this->class = new Board( $lang );
 	}
 }
-?>

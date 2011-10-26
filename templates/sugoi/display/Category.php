@@ -1,4 +1,4 @@
-<?
+<?php
 $template['addCategory'] = <<<END
 <form method="post" action="index.php?go=category&page=save">
 	<table cellpadding="5" cellspacing="0" border="0">
@@ -57,4 +57,3 @@ $template['editCategory'] = <<< END
 	</table>
 </form>
 END;
-?>

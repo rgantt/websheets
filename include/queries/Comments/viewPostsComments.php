@@ -1,4 +1,4 @@
-<?
+<?php
 $q['trueComs'] = <<< END
 select id from {0}_comment
 END;
@@ -10,4 +10,3 @@ END;
 $q['comCount'] = <<< END
 select * from {0}_comment where postId='{1}'
 END;
-?>

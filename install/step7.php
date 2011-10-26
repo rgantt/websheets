@@ -1,4 +1,4 @@
-<?
+<?php
 function doAction()
 {
 	global $lang, $config;
@@ -12,4 +12,3 @@ function doAction()
 	
 	return array( $content, $errors, true );
 }
-?>

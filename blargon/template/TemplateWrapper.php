@@ -1,4 +1,4 @@
-<?
+<?php
 package('blargon.template');
 
 import('sedai.*');
@@ -62,4 +62,3 @@ class TemplateWrapper
 		return $replacer->view();
 	}
 }
-?>

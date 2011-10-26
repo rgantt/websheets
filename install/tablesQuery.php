@@ -1,4 +1,4 @@
-<?
+<?php
 $q['comment'] = <<< END
 create table {0}_comment (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
@@ -96,4 +96,3 @@ create table {0}_banned (
 	addr varchar(16)
 );
 END;
-?>
