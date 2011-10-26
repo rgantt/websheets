@@ -1,23 +1,20 @@
 <?php
-function doAction()
-{
-	global $lang, $config, $db;
+use blargon\factory\DblFactory;
+
+require_once dirname(__FILE__).'/tablesQuery.php';
+require_once dirname(__FILE__).'/insertsQuery.php';
+
+function doAction() {
+	global $lang, $config, $db, $q, $inserts, $prefix;
 	$errors = 0;
-	require_once '../configuration/configure.php';
-	require_once 'tablesQuery.php';
-	require_once 'insertsQuery.php';
 	
 	$db = DblFactory::getConn();
 	
-	foreach( $q as $key => $value )
-	{
+	foreach( $q as $key => $value ) {
 		$qu = $db->query( str_replace( '{0}', $prefix, $value ) );
-		if( $qu )
-		{
+		if( $qu ) {
 			$content .= greenIt( ucfirst( $key ).$lang->message( 'step6', 'wasAdded' ) ).'<br/>';
-		}
-		else
-		{
+		} else {
 			$content .= redIt( ucfirst( $key ).$lang->message( 'step6', 'wasNot' ) ).'<br/>';
 			$errors++;
 		}
@@ -25,44 +22,33 @@ function doAction()
 	
 	$content .= '<p/>';
 	
-	foreach( $inserts as $key => $value )
-	{
+	foreach( $inserts as $key => $value ) {
 		$qu = $db->query( str_replace( '{0}', $prefix, $value ) );
-		if( $qu )
-		{
-			if( strlen( $key ) > 1 )
-			{
+		if( $qu ) {
+			if( strlen( $key ) > 1 ) {
 				$content .= greenIt( ucfirst( $key ).$lang->message( 'step6', 'wasAdded' ) ).'<br/>';
 			}
-		}
-		else
-		{
-			if( strlen( $key ) > 1 )
-			{
+		} else {
+			if( strlen( $key ) > 1 ) {
 				$content .= redIt( ucfirst( $key ).$lang->message( 'step6', 'wasNot' ) ).'<br/>';
 			}
 			$errors++;
 		}
 	}
 	
-	if( $errors == 0 )
-	{
+	if( $errors == 0 ) {
 		$content .= '<p/>'.$lang->message( 'general', 'continue' ).'<p/>';
-	}
-	else
-	{
+	} else {
 		$content .= '<p/>'.$lang->message( 'step4', 'fix' ).'<p/>';
 	}
 	
 	return array( $content, $errors, true );
 }
 
-function greenIt( $message )
-{
+function greenIt( $message ) {
 	return '<span style="color:green;">'.$message.'</span>';
 }
 
-function redIt( $message )
-{
+function redIt( $message ) {
 	return '<span style="color:red;">'.$message.'</span>';
 }

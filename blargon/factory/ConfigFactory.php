@@ -1,22 +1,17 @@
 <?php
-package('blargon.factory');
+namespace blargon\factory;
 
-import('blargon.util.Configuration');
+use blargon\util\Configuration;
 
-class ConfigFactory
-{
-	static $init = false;
-	static $conf;
+class ConfigFactory {
+	static $conf = false;
 	
-	private static function init()
-	{
+	private static function init() {
 		self::$conf = new Configuration();
 	}
 	
-	public static function getConfig()
-	{
-		if( !self::$init )
-		{
+	public static function getConfig() {
+		if( self::$conf === false ) {
 			self::init();
 		}
 		return self::$conf;

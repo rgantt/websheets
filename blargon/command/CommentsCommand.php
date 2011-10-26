@@ -1,13 +1,10 @@
 <?php
-package('blargon.controller');
+namespace blargon\command;
 
-import('blargon.command.Command');
-import('blargon.display.Comments');
+use blargon\display\Comments;
 
-class CommentsCommand extends Command
-{
-	public function init( $lang )
-	{
+class CommentsCommand extends Command {
+	public function init( $lang ) {
 		$this->class = new Comments( $lang );
 	}
 }

@@ -1,33 +1,28 @@
 <?php
-import('blargon.util.PageContent');
+namespace blargon\util;
 
-import('blargon.command.*');
+use blargon\messages\MessageStack;
 
-class FrontController
-{
+class FrontController {
 	static $header;
 	static $panel;
 	static $footer;
 	
-	public static function setHeader( $header )
-	{
+	public static function setHeader( $header ) {
 		self::$header = $header;
 	}
 	
-	public static function setPanel( $panel )
-	{
+	public static function setPanel( $panel ) {
 		self::$panel = $panel;
 	}
 	
-	public static function setFooter( $footer )
-	{
+	public static function setFooter( $footer ) {
 		self::$footer = $footer;
 	}
 	
-	public static function run( MessageStack $stack, $language )
-	{
+	public static function run( MessageStack $stack, $language ) {
 		// Class will be in the format of <something>Command, like CategoryCommand
-		$class = ucfirst( ( isset( $_GET['go'] ) && ( $_GET['go'] != null ) ) ? $_GET['go'] : 'board' ).'Command';
+		$class = "blargon\command\\".ucfirst( ( isset( $_GET['go'] ) && ( $_GET['go'] != null ) ) ? $_GET['go'] : 'board' ).'Command';
 		$method = ( isset( $_GET['page'] ) ? $_GET['page'] : 'show' );
 		
 		$command = new $class( $method, $stack, $language );

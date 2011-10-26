@@ -57,3 +57,4 @@ $template['editCategory'] = <<< END
 	</table>
 </form>
 END;
+?>

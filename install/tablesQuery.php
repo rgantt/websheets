@@ -96,3 +96,4 @@ create table {0}_banned (
 	addr varchar(16)
 );
 END;
+?>

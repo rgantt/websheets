@@ -1,9 +1,9 @@
 <?php
-package('blargon.class');
+namespace blargon\jdbl;
 
-import('japha.lang.Class');
-import('blargon.jdbl.DblException');
-import('blargon.jdbl.drivers.*');
+use japha\lang\_Class;
+use blargon\jdbl\DblException;
+use blargon\jdbl\drivers\MySQL;
 
 /**
  * $Id: DataLayer.php,v 1.1.1.1 2005/07/06 17:28:53 blargon Exp $
@@ -17,8 +17,7 @@ import('blargon.jdbl.drivers.*');
  * @author Ryan Gantt
  * @version $Revision: 1.1.1.1 $
  */
-class DataLayer
-{
+class DataLayer {
 	/**
 	 * Name of the driver, so that it could potentially be changed
 	 * dynamically by 1) updating the name 2) sparking a function that
@@ -42,15 +41,15 @@ class DataLayer
 	 * @throws DblException If there is an invalid driver or the driver can't connect
 	 * @param driver The name of the driver, defaults to bl-MySQL
 	 */
-	public function __construct( $driver = 'bl-MySQL' )
-	{
-		$parts = explode( '-', $driver );
-		try
-		{
-			$this->createDriver( $parts[1] );
+	public function __construct( $driver = 'MySQL' ) {
+		// this sucks pretty bad
+		$ns = "blargon\jdbl\drivers";
+		if( substr( $driver, 0, strlen( $ns ) ) != $ns ) {
+			$driver = "{$ns}\\{$driver}";
 		}
-		catch( DblException $e )
-		{
+		try {
+			$this->createDriver( $driver );
+		} catch( DblException $e ) {
 			throw $e;
 		}
 	}
@@ -62,16 +61,13 @@ class DataLayer
 	 * @throws DblException When there is an error creating the driver
 	 * @param driverName the Classname of the driver
 	 */
-	function createDriver( $driverName )
-	{
-		if( class_exists( $driverName ) )
-		{
+	function createDriver( $driverName ) {
+		// don't call autoload if we can't find it
+		if( class_exists( $driverName ) ) {
 			$cls = _Class::forName( $driverName );
 			$ct = $cls->getConstructor();
 			$this->driverInstance = $ct->newInstance();
-		}
-		else
-		{
+		} else {
 			throw new DblException('Could not create a new instance of the database driver');
 		}
 	}
@@ -82,43 +78,35 @@ class DataLayer
 	/**/
 	/**/
 	
-	function driverInfo()
-	{
+	function driverInfo() {
 		return $this->driverInstance->driver_info();
 	}
 	
-	function doConnect( $info = array() )
-	{
+	function doConnect( $info = array() ) {
 		return $this->driverInstance->connect( $info );
 	}
 	
-	function selectDatabase( $dbName )
-	{
+	function selectDatabase( $dbName ) {
 		return $this->driverInstance->select_db( $dbName );
 	}
 	
-	function query( $query, $conn = '' )
-	{
+	function query( $query, $conn = '' ) {
 		return $this->driverInstance->query( $query );
 	}
 	
-	function numRows( $query )
-	{
+	function numRows( $query ) {
 		return $this->driverInstance->num_rows( $query );
 	}
 	
-	function fetchObject( $query )
-	{
+	function fetchObject( $query ) {
 		return $this->driverInstance->fetch_object( $query );
 	}
 	
-	function getConnection()
-	{
+	function getConnection() {
 		return $this->driverInstance->get_connection();
 	}
 	
-	function getError()
-	{
+	function getError() {
 		return $this->driverInstance->get_error();
 	}
 }

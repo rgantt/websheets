@@ -1,8 +1,11 @@
 <?php
-package('blargon.factory');
+namespace blargon\factory;
 
-import('blargon.factory.DblFactory');
-import('blargon.user.*');
+use blargon\factory\DblFactory;
+use blargon\user\Reader;
+use blargon\user\Poster;
+use blargon\user\Moderator;
+use blargon\user\Administrator;
 
 class UserFactory
 {

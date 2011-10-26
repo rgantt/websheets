@@ -1,22 +1,17 @@
 <?php
-package('blargon');
+namespace blargon\util;
 
-import('japha.lang.StringBuffer');
+use japha\lang\StringBuffer;
+use blargon\messages\MessageStack;
 
 /**
- * $Id: PageContent.php,v 1.1.1.1 2005/07/06 17:28:54 blargon Exp $
- *
  * Small class which provides an abstraction between plain text and buffered text.
  *
  * We use it either in stead of, or along side the buffered output functions that
  * are built in to php. Used as a string buffer of sorts. In fact, it is implemented
  * with a string buffer.
- *
- * @author Ryan Gantt
- * @version $Revision: 1.1.1.1 $
  */
-class PageContent
-{
+class PageContent {
 	/**
 	 * Instance of StringBuffer that is used to hold the entire contents
 	 * of the page before it is sent to the screen.
@@ -36,11 +31,9 @@ class PageContent
 	 *
 	 * @param text Text which will be added to the beginning of the buffer
 	 */
-	public function __construct( $text=null )
-	{
+	public function __construct( $text = null ) {
 		$this->page = new StringBuffer('');
-		if( !is_null( $text ) )
-		{
+		if( !is_null( $text ) ) {
 			$this->add( $text );
 		}
 	}
@@ -50,41 +43,33 @@ class PageContent
 	 *
 	 * @param text Text or HTML code to be added to the buffer
 	 */
-	public function add( $text )
-	{
+	public function add( $text ) {
 		$this->page->append( $text );
 	}
 	
-	public function setHeader( $header )
-	{
+	public function setHeader( $header ) {
 		$this->header = new StringBuffer( $header );
 	}
 	
-	public function setPanel( $panel )
-	{
+	public function setPanel( $panel ) {
 		$this->panel = new StringBuffer( $panel );
 	}
 	
-	public function setFooter( $footer )
-	{
+	public function setFooter( $footer ) {
 		$this->footer = new StringBuffer( $footer );
 	}
 	
-	public function getMessages()
-	{
+	public function getMessages() {
 		return $this->messages;
 	}
 	
-	public function setMessages( $messages )
-	{
+	public function setMessages( $messages ) {
 		$this->messages = $messages;
 	}
 	
-	public function messageViewer( MessageStack $stack )
-	{
+	public function messageViewer( MessageStack $stack ) {
 		$content = new StringBuffer();
-		while( !$stack->isEmpty() )
-		{
+		while( !$stack->isEmpty() ) {
 			$msg = $stack->pop();
 			$content->append( $msg->getMessage()->toString() );
 		}
@@ -94,13 +79,11 @@ class PageContent
 	/**
 	 * Calls toString on the buffer, and then echos the output to the page.
 	 */
-	public function render()
-	{
+	public function render() {
 		echo $this->header->toString();
 		echo $this->panel->toString();
 		echo $this->page->toString();
-		if( $this->getMessages() != null )
-		{
+		if( $this->getMessages() != null ) {
 			echo $this->messages->toString();
 		}
 		echo $this->footer->toString();

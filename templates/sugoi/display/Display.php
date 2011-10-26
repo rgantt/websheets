@@ -47,3 +47,4 @@ $template['readComment'] = <<<END
 	</tr>
 </table>
 END;
+?>

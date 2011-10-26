@@ -1,13 +1,10 @@
 <?php
-package('blargon.controller');
+namespace blargon\command;
 
-import('blargon.command.Command');
-import('blargon.display.Category');
+use blargon\display\Category;
 
-class CategoryCommand extends Command
-{
-	public function init( $lang )
-	{
+class CategoryCommand extends Command {
+	public function init( $lang ) {
 		$this->class = new Category( $lang );
 	}
 }

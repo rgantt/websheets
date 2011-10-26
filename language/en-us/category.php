@@ -1,4 +1,4 @@
-<?
+<?php
 // public function addCategory()
 $lang['addCategory']['failure']['default'] 		= 'There are currently no categories in the database.';
 
@@ -28,4 +28,3 @@ $lang['editCategory']['message']['forExample'] 		= 'For example, ';
 
 $lang['editCategory']['message']['keep'] 		= 'Keep';
 $lang['editCategory']['message']['delete'] 		= 'Delete';
-?>

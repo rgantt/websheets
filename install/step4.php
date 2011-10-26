@@ -1,58 +1,44 @@
 <?php
-function doAction()
-{
+function doAction() {
 	global $lang, $config, $connect;
 	$errors = 0;
+	$content = '';
 	
-	if( function_exists('mysql_connect') )
-	{
+	if( function_exists('mysql_connect') ) {
 		$content .= greenIt( $lang->success( 'step4', 'MySQLExists' ) ).'<br/>';
-	}
-	else
-	{
+	} else {
 		$content .= redIt( $lang->failure( 'step4', 'MySQLVersion' ) ).'<br/>';
 		$errors++;
 	}
 	
 	$v = explode( '.', mysql_get_server_info() );
-	if( ( $v[0] >= 4 ) || $v )
-	{
+	if( ( $v[0] >= 4 ) || $v ) {
 		$content .= greenIt( $lang->success( 'step4', 'MySQLVersion' ) ).'<br/>';
-	}
-	else
-	{
+	} else {
 		$content .= redIt( $lang->failure( 'step4', 'MySQLVersion' ) ).'<br/>';
 		$errors++;
 	}
 	
-	if( ( $connect['user'] == '#' ) || ( $connect['host'] == '#' ) || ( $connect['pass'] == '#' ) || ( $connect['base'] == '#' ) )
-	{
+	if( ( $connect['user'] == '#' ) || ( $connect['host'] == '#' ) || ( $connect['pass'] == '#' ) || ( $connect['base'] == '#' ) ) {
 		$content .= redIt( $lang->failure( 'step4', 'Configuration' ) ).'<br/>';
 		$errors++;
-	}
-	else
-	{
+	} else {
 		$content .= greenIt( $lang->success( 'step4', 'Configuration' ) ).'<br/>';
 	}
 	
-	if( $errors == 0 )
-	{
+	if( $errors == 0 ) {
 		$content .= '<p/>'.$lang->message( 'general', 'continue' ).'<p/>';
-	}
-	else
-	{
+	} else {
 		$content .= '<p/>'.$lang->message( 'step4', 'fix' ).'<p/>';
 	}
 	
 	return array( $content, $errors );
 }
 
-function greenIt( $message )
-{
+function greenIt( $message ) {
 	return '<span style="color:green;">'.$message.'</span>';
 }
 
-function redIt( $message )
-{
+function redIt( $message ) {
 	return '<span style="color:red;">'.$message.'</span>';
 }

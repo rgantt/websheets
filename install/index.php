@@ -1,23 +1,12 @@
 <?php
-//require_once '../configuration/configure.php';
-require_once '../configuration/japha.php';
-import('blargon.lang.Language');
+require_once '../config.php';
+
+use blargon\lang\Language;
+
 set_include_path('..');
+
 $includes = explode( ',', $_SERVER['HTTP_ACCEPT_LANGUAGE'] );
 $lang = new Language( $includes[0], 'install' );
-
-function getNum( $md5 )
-{
-	$n = 15;
-	while( $n > 0 )
-	{
-		if( md5( $n ) == $md5 )
-		{
-			return $n;
-		}
-		$n--;
-	}
-}
 
 $page = <<< END
 <html>	
@@ -35,29 +24,23 @@ $page = <<< END
 		<td>
 END;
 
-if( strtolower( $_POST['submit'] ) == strtolower( $lang->message( 'general', 'previous' ) ) )
-{
-	$p = getNum( $_GET['page'] ) - 1;
-}
-else
-{
-	$p = getNum( $_GET['page'] ) + 1;
+if( isset( $_POST['submit'] ) && strtolower( $_POST['submit'] ) == strtolower( $lang->message( 'general', 'previous' ) ) ) {
+	$p = $_GET['page'] - 1;
+} else {
+	$p = $_GET['page'] + 1;
 }
 
 $num = ( !isset( $_GET['page'] ) ? 1 : $p );
-if( $num == 1 )
-{
-	header('Location: index.php?page='.md5('1') );
+if( $num == 1 ) {
+	header('Location: index.php?page=1');
 }
 
-$page .= '<form action="index.php?page='.md5( $num ).'" method="post">';
-
+$page .= '<form action="index.php?page='.$num.'" method="post">';
 $page .= $lang->message( 'step'.$p, 'introduction' ).'<p/>';
 
-@include_once 'step'.$p.'.php';
-if( function_exists('doAction') )
-{
-	list( $content, $noNext, $noPrev ) = doAction();
+include_once 'step'.$p.'.php';
+if( function_exists('doAction') ) {
+	@list( $content, $noNext, $noPrev ) = doAction();
 	$page .= $content;
 }
 
@@ -68,23 +51,16 @@ $page .= <<< END
 		<td align="center">
 END;
 
-if( $num >= 3 )
-{
-	if( $noPrev )
-	{
+if( $num >= 3 ) {
+	if( isset( $noPrev ) && $noPrev ) {
 		$page .= '<input class="formInput" type="submit" name="submit" value="'.$lang->message( 'general', 'previous' ).'" disabled/>';
-	}
-	else
-	{
+	} else {
 		$page .= '<input class="formInput" type="submit" name="submit" value="'.$lang->message( 'general', 'previous' ).'"/>';
 	}
 }
-if( $noNext )
-{
+if( isset( $noNext ) && $noNext ) {
 	$page .= '<input class="formInput" type="submit" name="submit" value="'.$lang->message( 'general', 'next' ).'" disabled/>';
-}
-else
-{
+} else {
 	$page .= '<input class="formInput" type="submit" name="submit" value="'.$lang->message( 'general', 'next' ).'"/>';
 }
 

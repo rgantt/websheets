@@ -1,4 +1,4 @@
-<?
+<?php
 // public function replaces()
 $lang['replaces']['message']['noNews'] 		= 'There is currently no news in the database. If you are an administrator, please go to the following link to add news:';
 
@@ -49,4 +49,3 @@ $lang['addNews']['message']['underline']	= 'Underline';
 $lang['addNews']['message']['overline']		= 'Overline';
 $lang['addNews']['message']['strike']		= 'Strike';
 $lang['addNews']['message']['image']		= 'Image';
-?>

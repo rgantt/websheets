@@ -1,6 +1,5 @@
 <?php
-function doAction()
-{
+function doAction() {
 	$newsTemplateData = "<table>\n";	
 	$newsTemplateData .= "\t<tr>\n";
 	$newsTemplateData .= "\t\t<td>{subject}</td>\n";

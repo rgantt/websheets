@@ -27,3 +27,4 @@ $template['board'] = <<<END
 	</table>
 </form>
 END;
+?>

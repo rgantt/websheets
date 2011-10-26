@@ -1,4 +1,4 @@
-<?
+<?php
 // public function doUploadAvatar()
 $lang['doUploadAvatar']['success']['default'] 	= 'The avatar was successfully uploaded';
 $lang['doUploadAvatar']['failure']['notMoved'] 	= 'The avatar was successfully uploaded, however, it could not be moved to the correct destination. Please contact your system administrator as soon as possible.';
@@ -62,4 +62,3 @@ $lang['uploadAvatar']['message']['uploadAvatar'] = 'Upload Avatar';
 $lang['uploadAvatar']['message']['destination'] = 'Destination File Name';
 $lang['uploadAvatar']['message']['fileToUpload'] = 'File to Upload';
 $lang['uploadAvatar']['message']['uploadAvatar'] = 'Upload Avatar';
-?>

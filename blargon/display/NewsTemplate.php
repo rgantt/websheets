@@ -1,20 +1,13 @@
 <?php
-package('blargon');
+namespace blargon\display;
 
-import('blargon.display.Display');
-import('blargon.factory.DblFactory');
+use blargon\factory\DblFactory;
 
 /**
- * $Id: NewsTemplate.php,v 1.3 2005/07/11 19:26:13 blargon Exp $
- *
  * This class is all about the new templates, including the global template
  * and the user defined template.
- *
- * @author Ryan Gantt
- * @version $Date: 2005/07/11 19:26:13 $
  */
-class NewsTemplate extends Display
-{
+class NewsTemplate extends Display {
 	/**
 	 * This is the method that's called when we know for sure that no one is
 	 * using a per-user template system.
@@ -29,7 +22,7 @@ class NewsTemplate extends Display
 		$temp = $this->db->fetchObject( $this->pqh->execute( 'mainTemplate' ) );
 		
 		$replacer = $this->template->setMethod( 'mainTemplate' );
-		$replacer->addVariable( 'template', eregi_replace( '<br />', '', $temp->template ) );
+		$replacer->addVariable( 'template', preg_replace( '<br />', '', $temp->template ) );
 		return $this->template->createViewer( $replacer );
 	}
 

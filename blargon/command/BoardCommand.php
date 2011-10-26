@@ -1,13 +1,10 @@
 <?php
-package('blargon.controller');
+namespace blargon\command;
 
-import('blargon.command.Command');
-import('blargon.display.Board');
+use blargon\display\Board;
 
-class BoardCommand extends Command
-{
-	public function init( $lang )
-	{
+class BoardCommand extends Command {
+	public function init( $lang ) {
 		$this->class = new Board( $lang );
 	}
 }

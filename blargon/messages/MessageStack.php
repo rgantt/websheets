@@ -1,13 +1,10 @@
 <?php
-package('blargon.messages');
+namespace blargon\messages;
 
-import('japha.util.Stack');
-import('blargon.messages.Message');
+use japha\util\Stack;
 
-class MessageStack extends Stack
-{
-	public function push( Message $object )
-	{
+class MessageStack extends Stack {
+	public function push( Message $object ) {
 		parent::push( $object );
 	}
 }

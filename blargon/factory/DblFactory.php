@@ -1,41 +1,32 @@
 <?php
-package('blargon.factory');
+namespace blargon\factory;
 
-import('blargon.jdbl.DblException');
-import('blargon.jdbl.DataLayer');
+use blargon\jdbl\DblException;
+use blargon\jdbl\DataLayer;
 
-class DblFactory
-{
-	static $init = false;
+class DblFactory {
 	static $info = array();
-	static $conn;
+	static $conn = null;
 	
-	public static function loadUp( $info, $driver )
-	{
+	public static function getConn() {
+		if( is_null( self::$conn ) ) {
+			self::init();
+		}
+		return self::$conn;
+	}
+	
+	public static function loadUp( $info, $driver ) {
 		self::$info['connect'] = $info;
 		self::$info['driver'] = $driver;
 	}
 	
-	private static function init()
-	{
-		try
-		{
+	private static function init() {
+		try {
 			self::$conn = new DataLayer( self::$info['driver'] );	
 			self::$conn->doConnect( self::$info['connect'] );
 			self::$conn->selectDatabase( self::$info['connect']['base'] );
-		}
-		catch( DblException $e )
-		{
+		} catch( DblException $e ) {
 			echo $e->getMessage();
 		}
-	}
-	
-	public static function getConn()
-	{
-		if( !self::$init )
-		{
-			self::init();
-		}
-		return self::$conn;
 	}
 }

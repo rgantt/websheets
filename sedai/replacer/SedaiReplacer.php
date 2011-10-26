@@ -1,10 +1,12 @@
 <?php
-package('sedai.replacer');
+namespace sedai\replacer;
 
-import('sedai.helper.*');
+use sedai\helper\ConfigHelper;
+use sedai\helper\LanguageHelper;
+use sedai\helper\VariableHelper;
+use sedai\helper\UserHelper;
 
-class SedaiReplacer
-{
+class SedaiReplacer {
 	protected $haystack;
 	protected $helper;
 	protected $format;
@@ -16,14 +18,12 @@ class SedaiReplacer
 	
 	protected $replaces = array();
 	
-	public function __construct( $haystack, $format )
-	{
+	public function __construct( $haystack, $format ) {
 		$this->haystack = $haystack;
 		$this->format = $format;
 	}
 	
-	public function setClass( $class )
-	{
+	public function setClass( $class ) {
 		$this->class = $class;
 	}
 	

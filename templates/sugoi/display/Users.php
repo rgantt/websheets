@@ -122,3 +122,4 @@ $template['uploadAvatar'] = <<<END
 	</table>
 </form>
 END;
+?>

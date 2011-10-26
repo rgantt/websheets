@@ -38,3 +38,4 @@ $template['viewPosts'] = <<< END
 	</tr>
 </table>
 END;
+?>

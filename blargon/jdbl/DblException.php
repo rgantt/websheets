@@ -1,5 +1,7 @@
 <?php
-package('blargon.jdbl');
+namespace blargon\jdbl;
+
+use japha\lang\Exception;
 
 /**
  * $Id: DblException.php,v 1.1.1.1 2005/07/06 17:28:53 blargon Exp $

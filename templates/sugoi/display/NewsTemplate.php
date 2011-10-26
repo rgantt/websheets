@@ -64,3 +64,4 @@ $template['userTemplate'] = <<< END
 	</table>
 </form>
 END;
+?>

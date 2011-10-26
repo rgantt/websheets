@@ -6,3 +6,4 @@ END;
 $q['delete'] = <<< END
 delete from {0}_category where name='{1}'
 END;
+?>

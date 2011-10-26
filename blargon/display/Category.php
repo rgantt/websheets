@@ -1,13 +1,9 @@
 <?php
-package('blargon');
+namespace blargon\display;
 
-import('blargon.display.Display');
-
-import('blargon.exception.InvalidDataTypeException');
+use blargon\exception\InvalidDataTypeException;
 
 /**
- * $Id: Category.php,v 1.5 2005/07/14 16:58:45 blargon Exp $
- *
  * This class controls the creation, display, change, and deletion of those
  * things which I call categories. The concept of categories hasn't really
  * been to pushed to its limit in this application, though I hope someday I can
@@ -19,12 +15,8 @@ import('blargon.exception.InvalidDataTypeException');
  * be writing about, and a visual clue for the reader as to what you should be
  * talking about. They are not enforced at all -- in fact, if you wanted, you
  * could define one, and then not even display it in the template.
- *
- * @author Ryan Gantt
- * @version $Date: 2005/07/14 16:58:45 $
  */
-class Category extends Display
-{
+class Category extends Display {
 	/**
 	 * This is the method where we list all of the current categories, and also
 	 * have a box where a user can enter the name of a new category which they
@@ -117,9 +109,11 @@ class Category extends Display
 		
 		$current = $this->db->fetchObject( $this->db->query('select id, name from '.$this->config->get('prefix').'_category where id=\''.$cat->parent.'\'') );
 		
-		$q = $this->db->query('select id, name from '.$this->config->get('prefix').'_category where id <> \''.$cat->id.'\' and id <> \''.$current->id.'\' order by id desc');
+		$q = $this->db->query('select id, name from '.$this->config->get('prefix').'_category where id <> \''.$cat->id.'\' and id <> \''.(isset($current->id)?$current->id:0).'\' order by id desc');
 		$parents = '<select name="parent" class="formInput">';
-		$parents .= '<option value="'.$current->id.'">'.$current->name.'</option>';
+		if( isset( $current->name ) ) {
+			$parents .= '<option value="'.$current->id.'">'.$current->name.'</option>';
+		}
 		$parents .= '<option value="0">None</option>';
 		while( $row = $this->db->fetchObject( $q ) )
 		{

@@ -1,29 +1,21 @@
 <?php
-package('blargon');
+namespace blargon\display;
 
-import('blargon.display.Display');
-import('blargon.factory.*');
+use blargon\factory\DblFactory;
 
 /**
- * $Id: Board.php,v 1.5 2005/07/11 19:33:45 blargon Exp $
- *
  * This is the class that controls the user message board that's displayed
  * on the main control panel page. It's a fairly straightforward class, mainly
  * because most of the actual logic is in a separate file, called (at this time)
  * board.php in the main directory.
- *
- * @author Ryan Gantt
- * @version $Date: 2005/07/11 19:33:45 $
  */
-class Board extends Display
-{
+class Board extends Display {
 	/**
 	 * Returns the name of the site from the configuration
 	 *
 	 * @return string The name of the web site
 	 */
-	public function getSiteName()
-	{
+	public function getSiteName() {
 		return $this->config->get('siteName');
 	}
 	
@@ -33,8 +25,7 @@ class Board extends Display
 	 *
 	 * @return string The user message board with site title
 	 */
-	public function show()
-	{
+	public function show() {
 		$replacer = $this->template->setMethod( 'board' );
 		$replacer->addVariable( 'title', $this->getSiteName() );
 		$replacer->addVariable( 'entries', $this->getEntries() );
@@ -46,8 +37,7 @@ class Board extends Display
 	 *
 	 * @return string HTML code for an iframe with the message board inside
 	 */
-	public function getEntries()
-	{
+	public function getEntries() {
 		return '<iframe class="boardTableCell" src="board.php?language='.$this->language.'" style="border:1px solid #ffffff; width:100%; height:295px;"></iframe>';
 	}
 	
@@ -56,15 +46,11 @@ class Board extends Display
 	 *
 	 * @return string A confirmation message about your shout
 	 */
-	public function saveEntry()
-	{
+	public function saveEntry() {
 		$put = $this->pqh->execute( 'saveEntry', array( time(), $this->user->getId(), $_POST['message'] ) );
-		if( $put )
-		{
+		if( $put ) {
 			return $this->lang->success( 'saveEntry', 'default' );
-		}
-		else
-		{
+		} else {
 			return $this->lang->failure( 'saveEntry', 'default' ) . $this->db->getError();
 		}
 	}
@@ -76,8 +62,7 @@ class Board extends Display
 	 *
 	 * @return string An error message, because this feature doesn't exist.
 	 */
-	public function admin()
-	{
+	public function admin() {
 		return $this->lang->message( 'adminBoard', 'default' );
 	}
 }

@@ -101,3 +101,4 @@ END;
 $template['replaces'] = <<<END
 <br/>There are no entries yet. If you are a registered user, you may login and <a href="@config->siteUrl;/@config->installDir;/index.php?go=news&page=add">post something</a>
 END;
+?>

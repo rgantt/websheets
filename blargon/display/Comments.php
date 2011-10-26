@@ -1,12 +1,9 @@
 <?php
-package('blargon');
+namespace blargon\display;
 
-import('blargon.display.Display');
-import('blargon.factory.DblFactory');
+use blargon\factory\DblFactory;
 
 /**
- * $Id: Comments.php,v 1.13 2005/07/14 16:58:45 blargon Exp $
- *
  * This might just be the most dirty class in all of blargon. I'm not even sure
  * why it's in a class right now, to be honest. Basically every single piece of
  * logic needed to administer everything about comments is held in this one
@@ -14,12 +11,8 @@ import('blargon.factory.DblFactory');
  *
  * One of the goals of the next major release is a complete rewrite (or just a
  * reworking) of the comments engine.
- *
- * @author Ryan Gantt
- * @version $Date: 2005/07/14 16:58:45 $
  */
-class Comments extends Display
-{
+class Comments extends Display {
 	/**
 	 * Shows a list of all of the news entries in the database (regardless of whether
 	 * they have any comments attached to them or not), and lists the amount of comments

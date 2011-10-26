@@ -1,5 +1,2 @@
 <?php
-function doAction()
-{
-
-}
+function doAction() {}

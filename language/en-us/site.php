@@ -1,4 +1,4 @@
-<?
+<?php
 // public function saveConfiguration()
 $lang['saveConfiguration']['success']['default']= 'The configuration settings were successfully saved.';
 $lang['saveConfiguration']['failure']['url'] 	= 'Please go back and enter a valid site URL';
@@ -37,4 +37,3 @@ $lang['config']['message']['hours'] 		= 'Hours';
 $lang['config']['message']['yes'] 		= 'yes';
 $lang['config']['message']['no']		= 'no';
 $lang['config']['message']['currently'] 	= 'currently';
-?>

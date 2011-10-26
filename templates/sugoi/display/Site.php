@@ -169,3 +169,4 @@ $template['config'] = <<<END
 	</table>
 </form>
 END;
+?>

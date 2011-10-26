@@ -1,4 +1,4 @@
-<?
+<?php
 // public function showPanel()
 $lang['showPanel']['message']['home'] 			= 'Home';
 
@@ -32,4 +32,3 @@ $lang['showPanel']['message']['userBoard'] 		= 'Board';
 $lang['showPanel']['message']['profile'] 			= 'Profile';
 $lang['showPanel']['message']['configuration'] 		= 'Config';
 $lang['showPanel']['message']['logout'] 			= 'Logout';
-?>

@@ -1,21 +1,14 @@
 <?php
-package('blargon');
+namespace blargon\display;
 
-import('blargon.display.Display');
-import('blargon.factory.*');
+use blargon\factory\DblFactory;
 
 /**
- * $Id: Site.php,v 1.5 2005/07/11 19:26:13 blargon Exp $
- *
  * This class is here to provide a way to get access to the configuration variables
  * that are saved in the {prefix}_config table. Some of them require logic to save
  * and display, as can be noted in the edit() method.
- *
- * @author Ryan Gantt
- * @version $Revision: 1.5 $
  */
-class Site extends Display
-{	
+class Site extends Display {	
 	private $problems = array();
 	
 	/**

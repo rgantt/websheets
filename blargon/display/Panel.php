@@ -1,10 +1,8 @@
 <?php
-package('blargon');
+namespace blargon\display;
 
-import('japha.lang.StringBuffer');
-
-import('blargon.display.Display');
-import('blargon.factory.*');
+use japha\lang\StringBuffer;
+use blargon\factory\DblFactory;
 
 /**
  * $Id: Panel.php,v 1.4 2005/07/11 19:26:13 blargon Exp $
@@ -15,16 +13,14 @@ import('blargon.factory.*');
  * @author Ryan Gantt
  * @version $Revision: 1.4 $
  */
-class Panel extends Display
-{
+class Panel extends Display {
 	/**
 	 * Checks the configuration setting and returns a boolean regarding
 	 * whether to show the links for two independent templates.
 	 *
 	 * @return boolean Whether or not to show per-user template options
 	 */
-	function perUserTemplates()
-	{
+	function perUserTemplates()	{
 		return ( ( $this->config->get('perUserTemplates') == 'yes' ) ? true : false );
 	}
 	
@@ -37,13 +33,11 @@ class Panel extends Display
 	 * @param req The level required to actually display the link
 	 * @return String A link to the control panel area specified by url
 	 */
-	function panelLink( $url, $text, $req )
-	{
+	function panelLink( $url, $text, $req ) {
 		return ( ( $req <= $this->user->getLevel() ) ? '<li/><a href="index.php?go='.$url.'" target="_self">'.$text.'</a>' : '' );
 	}
 
-	function subPanelLink( $url, $text, $req )
-	{
+	function subPanelLink( $url, $text, $req ) {
 		return '<div style="text-indent: 1em;">'.$this->panelLink( $url, $text, $req ).'</div>';
 	}
 	
@@ -56,8 +50,7 @@ class Panel extends Display
 	 *
 	 * @return String The control panel menu
 	 */
-	function showPanel()
-	{
+	function showPanel() {
 		$c = new StringBuffer();
 		$c->append( $this->panelLink( '', $this->lang->message( 'showPanel', 'home' ), 1 ) );
 		$c->append( '<li/>'.$this->lang->message( 'showPanel', 'articles' ) );
@@ -67,13 +60,10 @@ class Panel extends Display
 		$c->append( $this->subPanelLink( 'category&page=add', $this->lang->message( 'showPanel', 'categories:add' ), 3 ) );
 		$c->append( $this->subPanelLink( 'category&page=add', $this->lang->message( 'showPanel', 'categories:edit' ), 3 ) );
 		$c->append( '<li/>'.$this->lang->message( 'showPanel', 'templates' ) );
-		if( $this->perUserTemplates() )
-		{	
+		if( $this->perUserTemplates() )	{	
 			$c->append( $this->subPanelLink( 'template&page=main', $this->lang->message( 'showPanel', 'templates:global' ), 3 ) );
 			$c->append( $this->subPanelLink( 'template&page=user', $this->lang->message( 'showPanel', 'templates:user' ), 1 ) );
-		}
-		else
-		{
+		} else {
 			$c->append( $this->subPanelLink( 'template&page=main', $this->lang->message( 'showPanel', 'templates:news' ), 3 ) );
 		}
 		$c->append( '<li/>'.$this->lang->message( 'showPanel', 'users' ) );

@@ -1,8 +1,4 @@
 <?php
-package('blargon.user');
+namespace blargon\user;
 
-import('blargon.user.User');
-
-class Administrator extends User
-{
-}
+class Administrator extends User {}

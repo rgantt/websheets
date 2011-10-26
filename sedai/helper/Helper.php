@@ -1,12 +1,10 @@
 <?php
-package('sedai.helper');
+namespace sedai\helper;
 
-abstract class Helper
-{
+abstract class Helper {
 	protected $instance;
 	
-	public function __construct()
-	{
+	public function __construct() {
 		$this->getInstance();
 	}
 	

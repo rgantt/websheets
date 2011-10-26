@@ -1,21 +1,15 @@
 <?php
-package('blargon.user');
+namespace blargon\user;
 
-import('blargon.factory.DblFactory');
+use blargon\factory\DblFactory;
 
 /**
- * $Id: User.php,v 1.1.1.1 2005/07/06 17:28:54 blargon Exp $
- *
  * As of right now, there are no member variables in this class -- they are
  * all written to and read from the database on command. I'm not sure if this
  * is the best way to do it -- it might be more wise to read/write them only
  * every n calls.
- *
- * @author Ryan Gantt
- * @version $Revision: 1.1.1.1 $
  */
-abstract class User
-{
+abstract class User {
 	protected $db;
 	
 	protected $user;
@@ -23,8 +17,7 @@ abstract class User
 	
 	private $prefix;
 	
-	public function __construct( $name, $pass )
-	{
+	public function __construct( $name, $pass ) {
 		global $prefix;
 		$this->prefix = $prefix;
 		$this->db = DblFactory::getConn();
@@ -32,85 +25,69 @@ abstract class User
 		$this->pass = $pass;
 	}
 	
-	private function doRead( $field )
-	{
+	private function doRead( $field ) {
 		$result = $this->db->fetchObject( $this->db->query( 'select '.$field.' from '.$this->prefix.'_user where user=\''.$this->user.'\' and pass=\''.$this->pass.'\'' ) );
 		return $result->$field;
 	}
 	
-	private function doWrite( $field, $value )
-	{
+	private function doWrite( $field, $value ) {
 		return $this->db->query( 'update '.$this->prefix.'_user set '.$field.' = \''.$value.'\' where user=\''.$this->user.'\' and pass=\''.$this->pass.'\'' );
 	}
 	
-	public function setPass( $pass )
-	{
+	public function setPass( $pass ) {
 		$this->doWrite( 'password', md5( $pass ) );
 		$this->pass = md5( $pass );
 	}
 	
-	public function getPass()
-	{
+	public function getPass() {
 		return $this->pass;
 	}
 	
-	public function getUser()
-	{
+	public function getUser() {
 		return $this->user;
 	}
 	
-	public function getId()
-	{
+	public function getId() {
 		return $this->doRead('id');
 	}
 	
-	public function getLevel()
-	{
+	public function getLevel() {
 		return $this->doRead('userLevel');
 	}
 	
-	public function getAlias()
-	{
+	public function getAlias() {
 		return $this->doRead('alias');
 	}
 	
-	public function getEmail()
-	{
+	public function getEmail() {
 		return $this->doRead('email');
 	}
 	
-	public function getTitle()
-	{
+	public function getTitle() {
 		return $this->doRead('title');
 	}
 	
-	public function getAvatar()
-	{
+	public function getAvatar() {
 		return $this->doRead('avatar');
 	}
 	
-	public function setLevel( $level )
-	{
+	public function setLevel( $level ) {
 		return $this->doWrite( 'userLevel', $level );
 	}
 	
-	public function setAlias( $alias )
-	{
+	public function setAlias( $alias ) {
 		return $this->doWrite( 'alias', $alias );
 	}
 	
-	public function setEmail( $email )
-	{
+	public function setEmail( $email ) {
 		return $this->doWrite( 'email', $email );
 	}
 	
-	public function setTitle( $title )
-	{
+	public function setTitle( $title ) {
 		return $this->doWrite( 'title', $title );
 	}
 	
-	public function setAvatar( $avatar )
-	{
+	public function setAvatar( $avatar ) {
 		return $this->doWrite( 'avatar', $avatar );
 	}
 }

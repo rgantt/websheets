@@ -1,14 +1,10 @@
 <?php
-package('blargon');
+namespace blargon\display;
 
-import('blargon.display.Display');
-import('blargon.factory.DblFactory');
-
-import('blargon.exception.InvalidQueryException');
+use blargon\factory\DblFactory;
+use blargon\exception\InvalidQueryException;
 
 /**
- * $Id: News.php,v 1.8 2005/07/14 16:58:45 blargon Exp $
- *
  * This class controls all of the functions related to news -- adding, editing, 
  * displaying, et cetera.
  *
@@ -16,12 +12,8 @@ import('blargon.exception.InvalidQueryException');
  * database and displaying it to the news page. I'm not sure if that will
  * remain in here for long, but for now it's O.K. If it's not broken, don't
  * fix it.
- *
- * @author Ryan Gantt
- * @version $Date: 2005/07/14 16:58:45 $
  */
-class News extends Display
-{	
+class News extends Display {	
 	/**
 	 * Checks whether or not the current user has their own template. If
 	 * per-user templates are turned on, this method is called to see if the
@@ -31,34 +23,27 @@ class News extends Display
 	 * @param id int The user if of the person currently accessing the panel
 	 * @return int The number of templates that the user currently has defined
 	 */
-	function userHasTemplate( $id )
-	{
+	function userHasTemplate( $id ) {
 		$template = $this->pqh->execute( 'userHasTemplate', array( $this->config->get('prefix'), $id ) );
 		return $this->db->numRows( $template );
 	}
 	
-	public static function getClientLanguage()
-	{
+	public static function getClientLanguage() {
 		global $config;
 		$browserLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 		$pos = strpos( $browserLanguage, ';' );
-		if ( $pos > 0 )
-		{
+		if ( $pos > 0 ) {
 			$browserLanguage = substr( $browserLanguage, 0, $pos );
 		}
-		
-		$languages = split( ',', $browserLanguage );
+		$languages = explode( ',', $browserLanguage );
 		$language = false;
-		foreach( $languages as $value )
-		{
-			if( installedLanguage( $value ) )
-			{
+		foreach( $languages as $value ) {
+			if( \installedLanguage( $value ) ) {
 				$language = $value;
 				break;
 			}
 		}
-		if( !is_string( $language ) )
-		{
+		if( !is_string( $language ) ) {
 			$language = $config->get('language');
 		}
 		return $language;

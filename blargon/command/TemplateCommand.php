@@ -1,13 +1,10 @@
 <?php
-package('blargon.controller');
+namespace blargon\command;
 
-import('blargon.command.Command');
-import('blargon.display.NewsTemplate');
+use blargon\display\NewsTemplate;
 
-class TemplateCommand extends Command
-{
-	public function init( $lang )
-	{
+class TemplateCommand extends Command {
+	public function init( $lang ) {
 		$this->class = new NewsTemplate( $lang );
 	}
 }

@@ -1,41 +1,29 @@
 <?php
-package('blargon');
+namespace blargon\display;
 
-import('blargon.display.Display');
-import('blargon.factory.DblFactory');
+use blargon\factory\DblFactory;
 
 /**
- * $Id: Users.php,v 1.5 2005/07/11 19:26:14 blargon Exp $
- *
  * Displays all of the user functions: edit, create, and remove.
- *
- * @author Ryan Gantt
- * @version $Revision: 1.5 $
  */
-class Users extends Display
-{
-	function getAvatarList()
-	{
+class Users extends Display {
+	function getAvatarList() {
 		$content = '';
 		$dir = dir('images/avatar');
-		while( ( $file = $dir->read() ) !== false )
-		{
-			if( ( substr( $file, -4 ) == '.jpg' ) || ( substr( $file, -4 ) == '.jpeg' ) || ( substr( $file, -4 ) == '.gif' ) || ( substr( $file, -4 ) == '.png' ) )
-			{
+		while( ( $file = $dir->read() ) !== false ) {
+			if( ( substr( $file, -4 ) == '.jpg' ) || ( substr( $file, -4 ) == '.jpeg' ) || ( substr( $file, -4 ) == '.gif' ) || ( substr( $file, -4 ) == '.png' ) )	{
 				$content .= '<option value="'.$file.'">'.$file.'</option>';
 			}
 		}
 		return $content;
 	}
 	
-	function uploadAvatar()
-	{
+	function uploadAvatar() {
 		$replacer = $this->template->setMethod( 'board' );
 		return $this->template->createViewer( $replacer );
 	}
 	
-	function doUploadAvatar()
-	{
+	function doUploadAvatar() {
 		if( $_FILES['avatar']['error'] == 0 )
 		{
 			if( $_POST['fileName'] != $_FILES['avatar']['name'] )

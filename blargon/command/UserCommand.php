@@ -1,13 +1,10 @@
 <?php
-package('blargon.controller');
+namespace blargon\command;
 
-import('blargon.command.Command');
-import('blargon.display.Users');
+use blargon\display\Users;
 
-class UserCommand extends Command
-{
-	public function init( $lang )
-	{
+class UserCommand extends Command {
+	public function init( $lang ) {
 		$this->class = new Users( $lang );
 	}
 }

@@ -9,3 +9,4 @@ $template['panel'] = <<<END
 <td style="border-bottom:1px dashed #dddddd;" width:490px;" align="center" style="background-color:#ff0000;" valign="top">
 <div style="margin:15px;">
 END;
+?>
