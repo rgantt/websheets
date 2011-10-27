@@ -4,33 +4,19 @@ namespace blargon\jdbl;
 use japha\lang\_Class;
 use blargon\jdbl\DblException;
 use blargon\jdbl\drivers\MySQL;
+use \PDO;
+use \PDOStatement;
 
 /**
- * $Id: DataLayer.php,v 1.1.1.1 2005/07/06 17:28:53 blargon Exp $
- *
  * Wrapper class for database drivers... Ensures that we don't call functions 
  * that the drivers don't have
  *
  * All member variables are private, since this is the class that should be
  * called to take care of all database functions.
- *
- * @author Ryan Gantt
- * @version $Revision: 1.1.1.1 $
  */
 class DataLayer {
 	/**
-	 * Name of the driver, so that it could potentially be changed
-	 * dynamically by 1) updating the name 2) sparking a function that
-	 * checks the current data source against the name and makes the switch
-	 *
-	 * @private
-	 */
-	private $driverName;
-	
-	/**
-	 * Instance of Database which is specific to a certain DBMS.
-	 *
-	 * @private
+	 * Instance of PDO which is specific to a certain DBMS.
 	 */
 	private $driverInstance;
 	
@@ -41,17 +27,8 @@ class DataLayer {
 	 * @throws DblException If there is an invalid driver or the driver can't connect
 	 * @param driver The name of the driver, defaults to bl-MySQL
 	 */
-	public function __construct( $driver = 'MySQL' ) {
-		// this sucks pretty bad
-		$ns = "blargon\jdbl\drivers";
-		if( substr( $driver, 0, strlen( $ns ) ) != $ns ) {
-			$driver = "{$ns}\\{$driver}";
-		}
-		try {
-			$this->createDriver( $driver );
-		} catch( DblException $e ) {
-			throw $e;
-		}
+	public function __construct( PDO $conn ) {
+		$this->driverInstance = $conn;
 	}
 	
 	/**
@@ -72,41 +49,27 @@ class DataLayer {
 		}
 	}
 	
-	/**/
-	/**/
-	/* Wrapper functions for the database drivers */
-	/**/
-	/**/
-	
 	function driverInfo() {
 		return $this->driverInstance->driver_info();
 	}
 	
-	function doConnect( $info = array() ) {
-		return $this->driverInstance->connect( $info );
+	function query( $queryString ) {
+		return $this->driverInstance->query( $queryString );
 	}
 	
-	function selectDatabase( $dbName ) {
-		return $this->driverInstance->select_db( $dbName );
+	function numRows( PDOStatement $query ) {
+		return $query->rowCount();
 	}
 	
-	function query( $query, $conn = '' ) {
-		return $this->driverInstance->query( $query );
-	}
-	
-	function numRows( $query ) {
-		return $this->driverInstance->num_rows( $query );
-	}
-	
-	function fetchObject( $query ) {
-		return $this->driverInstance->fetch_object( $query );
+	function fetchObject( PDOStatement $query ) {
+		return $query->fetchObject();
 	}
 	
 	function getConnection() {
-		return $this->driverInstance->get_connection();
+		return $this->driverInstance;
 	}
 	
 	function getError() {
-		return $this->driverInstance->get_error();
+		return $this->driverInstance->errorInfo();
 	}
 }

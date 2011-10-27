@@ -5,8 +5,8 @@ use blargon\jdbl\DblException;
 use blargon\jdbl\DataLayer;
 
 class DblFactory {
-	static $info = array();
-	static $conn = null;
+	private static $handle = null;
+	private static $conn = null;
 	
 	public static function getConn() {
 		if( is_null( self::$conn ) ) {
@@ -15,16 +15,13 @@ class DblFactory {
 		return self::$conn;
 	}
 	
-	public static function loadUp( $info, $driver ) {
-		self::$info['connect'] = $info;
-		self::$info['driver'] = $driver;
+	public static function load( $handle ) {
+		self::$handle = $handle;
 	}
 	
 	private static function init() {
 		try {
-			self::$conn = new DataLayer( self::$info['driver'] );	
-			self::$conn->doConnect( self::$info['connect'] );
-			self::$conn->selectDatabase( self::$info['connect']['base'] );
+			self::$conn = new DataLayer( self::$handle );	
 		} catch( DblException $e ) {
 			echo $e->getMessage();
 		}

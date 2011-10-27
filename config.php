@@ -11,12 +11,10 @@ $connect = array(
 	'base' => 'websheets',
 	// database table-name prefix for this installation
 	'prefix' => 'websheets',
-	// should stay as bl-MySQL unless you've got another driver
 	'driver' => 'MySQL'
 );
 
 $prefix = $connect['prefix'];
-$driver = $connect['driver'];
 
 /** Sedai configuration directives */
 
@@ -41,4 +39,6 @@ require_once dirname(__FILE__).'/../japha/japha.php';
 
 /* Beginning the database connection */
 
-DblFactory::loadUp( $connect, $driver );
+DblFactory::load( 
+	new PDO("mysql:host={$connect['host']};dbname={$connect['base']}", $connect['user'], $connect['pass'] ) 
+);
