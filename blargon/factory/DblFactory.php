@@ -1,11 +1,12 @@
 <?php
 namespace blargon\factory;
 
-use blargon\jdbl\DblException;
 use blargon\jdbl\DataLayer;
+use \PDO;
+use \PDOException;
 
 class DblFactory {
-	private static $handle = null;
+	private static $param = null;
 	private static $conn = null;
 	
 	public static function getConn() {
@@ -15,14 +16,14 @@ class DblFactory {
 		return self::$conn;
 	}
 	
-	public static function load( $handle ) {
-		self::$handle = $handle;
+	public static function load( $connect ) {
+		self::$param = $connect;
 	}
 	
 	private static function init() {
 		try {
-			self::$conn = new DataLayer( self::$handle );	
-		} catch( DblException $e ) {
+			self::$conn = new PDO("mysql:host=".self::$param['host'].";dbname=".self::$param['base'], self::$param['user'], self::$param['pass'] );	
+		} catch( PDOException $e ) {
 			echo $e->getMessage();
 		}
 	}

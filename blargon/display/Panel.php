@@ -70,7 +70,6 @@ class Panel extends Display {
 		$c->append( $this->subPanelLink( 'user&page=add', $this->lang->message( 'showPanel', 'users:add' ), 2 ) );
 		$c->append( $this->subPanelLink( 'user&page=remove', $this->lang->message( 'showPanel', 'users:edit' ), 2 ) );
 		$c->append( $this->panelLink( 'comments&page=viewPosts', $this->lang->message( 'showPanel', 'comments' ), 2 ) );
-		$c->append( $this->panelLink( 'board&page=admin', $this->lang->message( 'showPanel', 'userBoard' ), 2 ) );
 		$c->append( $this->panelLink( 'configuration&page=edit', $this->lang->message( 'showPanel', 'configuration' ), 3 ) );
 		$c->append( $this->panelLink( 'user&page=edit', $this->lang->message( 'showPanel', 'profile' ), 1 ) );
 		$c->append( $this->panelLink( 'logout', $this->lang->message( 'showPanel', 'logout' ), 1 ) );

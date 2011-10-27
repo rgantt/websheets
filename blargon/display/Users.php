@@ -24,27 +24,21 @@ class Users extends Display {
 	}
 	
 	function doUploadAvatar() {
-		if( $_FILES['avatar']['error'] == 0 )
-		{
-			if( $_POST['fileName'] != $_FILES['avatar']['name'] )
-			{
+		if( $_FILES['avatar']['error'] == 0 ) {
+			if( $_POST['fileName'] != $_FILES['avatar']['name'] ) {
 				$_FILES['avatar']['name'] = $_POST['fileName'];
 			}
-			if( move_uploaded_file( $_FILES['avatar']['tmp_name'], 'images/avatar/'.$_FILES['avatar']['name'] ) )
-			{
+			if( move_uploaded_file( $_FILES['avatar']['tmp_name'], 'images/avatar/'.$_FILES['avatar']['name'] ) ) {
 				return $this->lang->success( 'doUploadAvatar', 'default' );
 			}
 			return $this->lang->failure( 'doUploadAvatar', 'notMoved' );
-		}
-		else
-		{
+		} else {
 			return $this->lang->failure( 'doUploadAvatar', 'notUploaded' );
 		}
 		trace( $_FILES );
 	}
 	
-	function edit()
-	{
+	function edit() {
 		$title = ( $this->config->get( 'userTitles' ) == 'yes' ) ? '<tr><td>Title:</td><td><input class="formInput" type="text" name="title" value="#titleVal#"></td></tr>' : '<input type="hidden" name="title" value="Nobody"/>';
 		
 		$replacer = $this->template->setMethod( 'editUser' );
@@ -52,41 +46,31 @@ class Users extends Display {
 		return $this->template->createViewer( $replacer );
 	}
 		
-	function doEdit()
-	{
-		if( md5( $_POST['oldPass'] ) == $this->user->getPass() )
-		{
+	function doEdit() {
+		if( md5( $_POST['oldPass'] ) == $this->user->getPass() ) {
 			$this->user->setEmail( $_POST['email'] );
 			$this->user->setAlias( $_POST['alias'] );
 			$this->user->setAvatar( $_POST['avatar'] );
-			if( isset( $_POST['title'] ) )
-			{
+			if( isset( $_POST['title'] ) ) {
 				$this->user->setTitle( $_POST['title'] );
 			}
 			$content = $this->lang->success( 'doEditUser', 'default' );
 			
-			if( ( $_POST['newPass'] != '' ) && ( $_POST['newPass'] == $_POST['repeatNew'] ) )
-			{
+			if( ( $_POST['newPass'] != '' ) && ( $_POST['newPass'] == $_POST['repeatNew'] ) ) {
 				$this->user->setPass( $_POST['newPass'] );
 				$content .= $this->lang->success( 'doEditUser', 'passMatch' ).$_POST['newPass'].'.';
-			}
-			else if( ( $_POST['newPass'] != '' ) && ( $_POST['newPass'] != $_POST['repeatNew'] ) )
-			{
+			} else if( ( $_POST['newPass'] != '' ) && ( $_POST['newPass'] != $_POST['repeatNew'] ) ) {
 				$content .= $this->lang->failure( 'doEditUser', 'wrongPass' );
 			}
-		} 
-		else 
-		{
+		} else {
 			$content = $this->lang->failure( 'doEditUser', 'passNotFound' );
 		}
 		return $content;
 	}
 	
-	function add()
-	{
+	function add() {
 		$ull = "<td>User Level:</td>\n<td><select class=\"formInput\" name=\"userLevel\">";
-		switch( $this->user->getLevel() )
-		{
+		switch( $this->user->getLevel() ) {
 			case 3:
 				$ull .= '<option value="3">(3) '.$this->lang->message( 'addUser', 'level3' ).'</option>';
 			case 2:
@@ -101,58 +85,39 @@ class Users extends Display {
 		return $this->template->createViewer( $replacer );
 	}
 
-	function save()
-	{
-		if( $_POST['newPass'] == '' )
-		{
+	function save() {
+		if( $_POST['newPass'] == '' ) {
 			return $this->lang->failure( 'saveUser', 'passBlank' );
-		} 
-		else if( $_POST['repeatPass'] == '' )
-		{
+		} else if( $_POST['repeatPass'] == '' ) {
 			return $this->lang->failure( 'saveUser', 'repeatBlank' );
-		} 
-		else if( $_POST['newUserName'] == '' )
-		{
+		} else if( $_POST['newUserName'] == '' ) {
 			return $this->lang->failure( 'saveUser', 'userBlank' );
-		}
-		else if( !( $_POST['newPass'] == $_POST['repeatPass'] ) )
-		{
+		} else if( !( $_POST['newPass'] == $_POST['repeatPass'] ) ) {
 			return $this->lang->failure( 'saveUser', 'passMatch' );
-		} 
-		else 
-		{
+		} else {
 			$this->pqh->execute( 'saveUser', array( $_POST['newUserName'], md5($_POST['newPass']), $_POST['newEmail'], $_POST['newAlias'], $_POST['avatar'], $_POST['userLevel'] ) );
 			return $this->lang->success( 'saveUser', 'default' );
 		}
 	}
 
-	function remove()
-	{
+	function remove() {
 		$users = '';
 		$result = $this->pqh->execute( 'removeUser' );
-		while( $row = $this->db->fetchObject( $result ) )
-		{
+		while( $row = $result->fetchObject() ) {
 			$users .= '<option value="'.$row->user.'">'.$row->user.'</option>';
 		}
-		
 		$replacer = $this->template->setMethod( 'removeUser' );
 		$replacer->addVariable( 'users', $users );
 		return $this->template->createViewer( $replacer );
 	}
 	
-	function removeSave()
-	{
+	function removeSave() {
 		$user = $this->db->fetchObject( $this->pqh->execute( 'removeSaveUser', array( $_POST['removeUser'] ), 'user' ) );
-		if( $user->userLevel == 4 )
-		{
+		if( $user->userLevel == 4 ) {
 			return $this->lang->failure( 'removeSave', 'admin' );
-		}
-		else if( $user->user == $_COOKIE['uName'] )
-		{
+		} else if( $user->user == $_COOKIE['uName'] ) {
 			return $this->lang->failure( 'removeSave', 'reflect' );
-		}
-		else 
-		{
+		} else {
 			$this->pqh->execute( 'removeSaveUser', array( $_POST['removeUser'] ), 'delete' );
 			return $this->lang->success( 'removeSave', 'default' );
 		}

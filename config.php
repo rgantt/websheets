@@ -2,7 +2,7 @@
 use blargon\factory\DblFactory;
 use blargon\util\Configuration;
 
-/** Websheets configuration directives */
+/** Database configuration directives */
 
 $connect = array(
 	'host' => 'localhost',
@@ -39,6 +39,14 @@ require_once dirname(__FILE__).'/../japha/japha.php';
 
 /* Beginning the database connection */
 
-DblFactory::load( 
-	new PDO("mysql:host={$connect['host']};dbname={$connect['base']}", $connect['user'], $connect['pass'] ) 
-);
+// just got with MySQL for now
+DblFactory::load( $connect );
+
+/** uhhh */
+
+function installedLanguage( $lang ) {
+	if( is_dir( 'language/'.$lang ) ) {
+		return true;
+	}
+	return false;
+}

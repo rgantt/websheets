@@ -7,21 +7,15 @@ use blargon\user\Poster;
 use blargon\user\Moderator;
 use blargon\user\Administrator;
 
-class UserFactory
-{
-	public static function getUser( $name, $password )
-	{
+class UserFactory {
+	public static function getUser( $name, $password ) {
 		global $prefix;
-		if( $name == NULL )
-		{
+		if( $name == NULL ) {
 			return new Reader( null, null );
-		}
-		else
-		{
+		} else {
 			$db = DblFactory::getConn();
-			$level = $db->fetchObject( $db->query('select userLevel from '.$prefix.'_user where user=\''.$name.'\' and pass=\''.$password.'\'') );
-			switch( $level->userLevel )
-			{
+			$level = $db->query('select userLevel from '.$prefix.'_user where user=\''.$name.'\' and pass=\''.$password.'\'')->fetchObject();
+			switch( $level->userLevel ) {
 				case 1:
 					return new Poster( $name, $password );
 					break;

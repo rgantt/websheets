@@ -2,28 +2,28 @@
 namespace blargon\util;
 
 use blargon\factory\DblFactory;
+use \PDO;
 
 class Configuration {
 	private $db;
 	private $cache = array();
 	
-	public function __construct() {
-		$this->db = DblFactory::getConn();
+	public function __construct( PDO $db ) {
+		$this->db = $db;
 		$this->hardCache();
 		$this->cache();
 	}
 	
 	public function hardCache() {
-		global $prefix, $language, $version, $blargonUrl;
+		global $prefix, $language, $version;
 		$this->cache['prefix'] = $prefix;
 		$this->cache['language'] = $language;
 		$this->cache['version'] = $version;
-		$this->cache['blargonUrl'] = $blargonUrl;
 	}
 	
 	public function cache() {
 		$query = $this->db->query( 'select * from '.$this->cache['prefix'].'_config' );
-		while( $row = $this->db->fetchObject( $query ) ) {
+		while( $row = $query->fetchObject() ) {
 			$this->cache[ strtolower( $row->entry ) ] = $row->value;
 		}
 	}

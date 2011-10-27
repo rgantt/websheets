@@ -39,7 +39,7 @@ abstract class Display {
 			// login as a dummy user who is only able to see news
 			$this->user = '';
 		}
-		$this->templateName = $this->db->fetchObject( $this->db->query("select value from ".$this->config->get('prefix')."_config where entry='theme'") )->value;
+		$this->templateName = $this->db->query("select value from ".$this->config->get('prefix')."_config where entry='theme'")->fetchObject()->value;
 		$this->init( $lang );
 	}
 	

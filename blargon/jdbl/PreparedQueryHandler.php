@@ -2,6 +2,7 @@
 namespace blargon\jdbl;
 
 use blargon\factory\DblFactory;
+use \PDOException;
 
 class PreparedQueryHandler {
 	private $db;
@@ -24,11 +25,11 @@ class PreparedQueryHandler {
 		if( is_null( $this->queryBuffer ) || ( $this->methodBuffer != $method ) ) {
 			$this->loadQueryString( $method, $key );
 		}
-		$query = $this->db->query( $this->replaceWildcards( $this->queryBuffer, $parms ) ) or die(mysql_error());
-		if( $query ) {
-			return $query;
+		try {
+			return $this->db->query( $this->replaceWildcards( $this->queryBuffer, $parms ) );
+		} catch( PDOException $e ) {
+			throw new InvalidQueryException('There was an error with the query or the method name or key');
 		}
-		throw new InvalidQueryException('There was an error with the query or the method name or key');
 	}
 	
 	public function replaceWildcards( $query, $replaces ) {

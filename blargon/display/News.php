@@ -60,15 +60,11 @@ class News extends Display {
 	 * @param userName string The name of the user who is accessing the system
 	 * @return string The correct template
 	 */
-	function loadTemplate( $userName )
-	{
-		$id = $this->db->fetchObject( $this->pqh->execute( 'loadTemplate', array( $userName ), 'getUserId' ) );
-		if( ( $this->config->get('perUserTemplates') == 'yes' ) && $this->userHasTemplate( $id->id ) )
-		{
+	function loadTemplate( $userName ) {
+		$id = $this->pqh->execute( 'loadTemplate', array( $userName ), 'getUserId' )->fetchObject();
+		if( ( $this->config->get('perUserTemplates') == 'yes' ) && $this->userHasTemplate( $id->id ) ) {
 			$temp = $this->db->fetchObject( $this->pqh->execute( 'loadTemplate', array( $this->config->get('prefix'), $id->id ), 'loadUserTemplate' ) );
-		}
-		else
-		{
+		} else {
 			$temp = $this->db->fetchObject( $this->pqh->execute( 'loadTemplate', array( $this->config->get('prefix') ), 'loadDefaultTemplate' ) );
 		}
 		return $temp->template;
@@ -80,8 +76,7 @@ class News extends Display {
 	 *
 	 * @return int The number of posts per page
 	 */
-	function getMaxPosts()
-	{
+	function getMaxPosts() {
 		return $this->config->get('postsPerPage');
 	}
 	
@@ -94,11 +89,9 @@ class News extends Display {
 	 *
 	 * @return array Array containing the array of emotes and that of images
 	 */
-	function loadEmotes()
-	{
+	function loadEmotes() {
 		$query = $this->pqh->execute( 'loadEmotes' );
-		while( $row = $this->db->fetchObject( $query ) )
-		{
+		while( $row = $query->fetchObject() ) {
 			$emotes[] = $row->emote;
 			$images[] = '<img src="http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/'.$this->config->get('installDir').'/images/emoticon/'.$row->image.'" alt=""/>';
 		}
@@ -125,22 +118,19 @@ class News extends Display {
 	 * @param userName The name of the user who is
 	 * @return string The entire page of news
 	 */
-	function replaces( $userName )
-	{	
+	function replaces( $userName ) {	
 		$content = '';
 		$resultNews = $this->pqh->execute( 'replaces', array( $this->config->get('prefix'), $userName, $this->getMaxPosts() ), 'resultNews' );
-		if( $this->db->numRows( $resultNews ) == 0 )
-		{
+		if( $resultNews->rowCount() == 0 ) {
 			$replacer = $this->template->setMethod( 'replaces' );
 			return $this->template->createViewer( $replacer );
 		}
 		list( $chars, $images ) = $this->loadEmotes();
-		while( $show = $this->db->fetchObject( $resultNews ) )
-		{
+		while( $show = $resultNews->fetchObject() ) {
 			$newsplate = $this->loadTemplate( $show->user );
-			$numComments = $this->db->numRows( $this->pqh->execute( 'replaces', array( $show->id ), 'numComments' ) );
-			$nUser = $this->db->fetchObject( $this->pqh->execute( 'replaces', array( $show->user ), 'nUser' ) );
-			$obCats = $this->db->fetchObject( $this->pqh->execute( 'replaces', array( $show->cat ), 'obCats' ) );
+			$numComments = $this->pqh->execute( 'replaces', array( $show->id ), 'numComments' )->rowCount();
+			$nUser = $this->pqh->execute( 'replaces', array( $show->user ), 'nUser' )->fetchObject();
+			$obCats = $this->pqh->execute( 'replaces', array( $show->cat ), 'obCats' )->fetchObject();
 			
 			$show->news = str_ireplace( $chars, $images, $show->news );
 			
@@ -159,18 +149,12 @@ class News extends Display {
 	 *
 	 * @return string A confirmation message
 	 */
-	function build()
-	{
-		if( ( $_POST['newsMessage'] == '' ) || ( strtolower( $_POST['newsMessage'] ) == 'story' ) )
-		{
+	function build() {
+		if( ( $_POST['newsMessage'] == '' ) || ( strtolower( $_POST['newsMessage'] ) == 'story' ) ) {
 			throw new InvalidDataTypeException( $this->lang->failure( 'buildNews', 'nullMessage' ) );
-		}
-		else if( ( $_POST['subject'] == '' ) || ( strtolower( $_POST['subject'] ) == 'subject' ) )
-		{
+		} else if( ( $_POST['subject'] == '' ) || ( strtolower( $_POST['subject'] ) == 'subject' ) ) {
 			throw new InvalidDataTypeException( $this->lang->failure( 'buildNews', 'nullSubject' ) );
-		}
-		else if( $_POST['catGet'] == 'Choose Category' )
-		{
+		} else if( $_POST['catGet'] == 'Choose Category' ) {
 			throw new InvalidDataTypeException( $this->lang->failure( 'buildNews', 'chooseCategory' ) );
 		}
 		
@@ -187,35 +171,29 @@ class News extends Display {
 		/**
 		 * This section replaces all of the formatting keys with their html counterparts -- VERY VERY VERY DIRTY WTF
 		 */
-		foreach( $format as $key => $value )
-		{
+		foreach( $format as $key => $value ) {
 			$parts = explode( '@', $value );
 			
 			$_POST['newsMessage'] = str_replace( '['.$key.':]', '<'.$parts[0].'>', $_POST['newsMessage'] );
 			$_POST['newsMessage'] = str_replace( '[:'.$key.']', '</'.$parts[1].'>', $_POST['newsMessage'] );
 			
-			if( $key == 'a' && isset( $matches[2][0] ) )
-			{
+			if( $key == 'a' && isset( $matches[2][0] ) ) {
 				preg_match_all("/<a href=[\"']?(.*?)[\"']?.*?>(.*?)<\/a>/i", $_POST['newsMessage'], $matches );
 				$_POST['newsMessage'] = str_replace( '<a href="{0}"', '<a href="'.$matches[2][0].'"', $_POST['newsMessage'] );
 			}
-			if( $key == 'img' && isset( $matches[2][0] ) )
-			{
+			if( $key == 'img' && isset( $matches[2][0] ) ) {
 				preg_match_all("/<img src=[\"']?(.*?)[\"']?.*?>(.*?)<\/img>/i", $_POST['newsMessage'], $matches );
 				$_POST['newsMessage'] = str_replace( '<img src="{0}"', '<img src="'.$matches[2][0].'"', $_POST['newsMessage'] );
 				$_POST['newsMessage'] = str_replace( '>'.$matches[2][0].'</img>', '/>', $_POST['newsMessage'] );
 			}
 		}
 		
-		if(isset($_POST['submit']) && $_POST['submit'])
-		{
+		if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 			$_POST['newsMessage'] = str_replace( '<br>', '<br/>', $_POST['newsMessage'] );
 			$_POST['newsMessage'] = str_replace( '<p>', '<p/>', $_POST['newsMessage'] );
 			$this->pqh->execute( 'buildNews', array( $_POST['time'], $_POST['subject'], $_POST['user'], $_POST['mood'], $_POST['listeningTo'], $_POST['catGet'], $_POST['newsMessage'] ) );
 			return $this->lang->success( 'buildNews', 'default' );
-		} 
-		else 
-		{
+		} else {
 			return $this->lang->failure( 'buildNews', 'default' );
 		}
 	}
@@ -233,22 +211,17 @@ class News extends Display {
 	 *
 	 * @return string The page where users can add news
 	 */
-	function add()
-	{
+	function add() {
 		$catList = '';
 		$getCats = $this->pqh->execute( 'addNews' );
 		$mood = ( $this->config->get( 'moodEntry' ) == 'yes' ) ? '<tr><td>Mood:</td><td><input type="text" name="mood" style="width:290px;" class="formInput"/></td></tr>' : '<input type="hidden" name="mood" value="Normal"/>';
 		$listen = ( $this->config->get( 'listeningTo' ) == 'yes' ) ? '<tr><td>Currently Listening To:</td><td><input type="text" name="listeningTo" style="width:290px;" class="formInput"/></td></tr>' : '<input type="hidden" name="listeningTo" value="Nothing"/>';
-		while( $cats = $this->db->fetchObject( $getCats ) )
-		{
+		while( $cats = $getCats->fetchObject() ) {
 				$catList .= "<option value=\"".$cats->id."\">".$cats->name."</option>";
 		}
-		if( $this->db->numRows( $getCats ) == 0 )
-		{
+		if( $getCats->rowCount() == 0 ) {
 			return $this->lang->message( 'addNews', 'addCats' );
-		}
-		else
-		{
+		} else {
 			$vars = array( 'time' => time(), 'catList' => $catList, 'mood' => $mood, 'listeningTo' => $listen );
 			
 			$replacer = $this->template->setMethod( 'addNews' );
@@ -268,12 +241,10 @@ class News extends Display {
 	 *
 	 * @return string The page which shows the news entries and their options
 	 */
-	function edit()
-	{
+	function edit() {
 		$articles = '';
 		$getNews = $this->pqh->execute( 'editNews', array( $this->config->get('numEdit') ) );
-		while( $row = $this->db->fetchObject( $getNews ) )
-		{
+		while( $row = $getNews->fetchObject() ) {
 			$articles .= '<tr><td class="listTableCell">'.$row->id.'</td><td class="listTableCell">'.$row->subject.'</a></td><td class="listTableCell">'.$row->user.'</td><td class="listTableCell"><a href="index.php?go=news&page=realEdit&edit='.$row->id.'">EDIT</a> | <a href="index.php?go=news&page=saveEdit&amp;delete=yes&amp;id='.$row->id.'">DELETE</a></td></tr>';
 		}
 		
@@ -288,10 +259,9 @@ class News extends Display {
 	 *
 	 * @return string The edit news boxes filled with the news you've selected
 	 */
-	function realEdit()
-	{
-		$row = $this->db->fetchObject( $this->pqh->execute( 'realEditNews', array( $_GET['edit'] ), 'row' ) );
-		$cats = $this->db->fetchObject( $this->pqh->execute( 'realEditNews', array( $row->cat ), 'cats' ) );
+	function realEdit() {
+		$row = $this->pqh->execute( 'realEditNews', array( $_GET['edit'] ), 'row' )->fetchObject();
+		$cats = $this->pqh->execute( 'realEditNews', array( $row->cat ), 'cats' )->fetchObject();
 		
 		$vars = array( 'subject' => $row->subject, 'id' => $row->id, 'author' => $row->user, 'category' => $cats->name, 'news' => $row->news );
 		
@@ -312,15 +282,11 @@ class News extends Display {
 	 *
 	 * @return string A confirmation message telling whether the save was good
 	 */
-	function saveEdit()
-	{
-		if( isset( $_REQUEST['delete'] ) && $_REQUEST['delete'] == 'yes' )
-		{
+	function saveEdit() {
+		if( isset( $_REQUEST['delete'] ) && $_REQUEST['delete'] == 'yes' ) {
 			$delete = $this->pqh->execute( 'saveEditNews', array( $_REQUEST['id'] ), 'delete' );	
 			return $this->lang->success( 'saveEdit', 'delete' ). '<br><a href="index.php">Back to Control Panel</a>';
-		} 
-		else 
-		{
+		} else {
 			$query = $this->pqh->execute( 'saveEditNews', array( $_POST['news'], $_POST['subject'], $_POST['id'] ), 'update' );
 			return $this->lang->success( 'saveEdit', 'modify' ) . '<br><a href="index.php">Back to Control Panel</a>';
 		} 
@@ -333,8 +299,7 @@ class News extends Display {
 	 *
 	 * @return string All of the news from this.replaces()
 	 */
-	function view()
-	{
+	function view() {
 		return $this->replaces('%');
 	}
 }

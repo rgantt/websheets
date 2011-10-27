@@ -25,8 +25,7 @@ class Site extends Display {
 	 *
 	 * @return String Form to edit the configuration data
 	 */
-	function edit()
-	{
+	function edit() {
 		$sign = ( ( $this->config->get( 'timeOffset' ) >= 0 ) ? '+' : '-' );
 		$absOffset = abs( $this->config->get( 'timeOffset' ) );
 		$mood = ( ( $this->config->get( 'moodEntry' ) == 'no' ) ? 'no' : 'yes' );
@@ -45,13 +44,8 @@ class Site extends Display {
 	 *
 	 * @return boolean True iff the string was an email address
 	 */
-	function validateEmail( $email )
-	{
-		if( !eregi( "^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$", $email ) )
-		{
-			return false;
-		}
-		return true;
+	function validateEmail( $email ) {
+		return preg_match( "/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/", $email );
 	}
 	
 	/**
@@ -59,13 +53,8 @@ class Site extends Display {
 	 *
 	 * @return boolean True iff the string was a URL
 	 */
-	function validateUrl( $url )
-	{
-		if( !eregi( "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$", $url ) )
-		{
-			return false;
-		}
-		return true;
+	function validateUrl( $url ) {
+		return preg_match( "/^(http|https|ftp)\://[a-zA-Z0-9\-\.]+(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$/", $url );
 	}
 	
 	/**
@@ -74,25 +63,17 @@ class Site extends Display {
 	 *
 	 * @return String A message regarding the success or failure of the database query
 	 */
-	function save()
-	{
-		if( $this->validateEmail( $_POST['adminEmail'] ) )
-		{
-			if( $this->validateUrl( $_POST['siteUrl'] ) )
-			{
-				foreach( $_POST as $key => $value )
-				{
+	function save() {
+		if( $this->validateEmail( $_POST['adminEmail'] ) ) {
+			if( $this->validateUrl( $_POST['siteUrl'] ) ) {
+				foreach( $_POST as $key => $value ) {
 					$this->config->set( $key, $value );
 				}
 				return $this->lang->success( 'saveConfiguration', 'default' );
-			}
-			else
-			{
+			} else {
 				return $this->lang->failure( 'saveConfiguration', 'url' );
 			}
-		}
-		else
-		{
+		} else {
 			return $this->lang->faiure( 'saveConfiguration', 'email' );
 		}
 	}

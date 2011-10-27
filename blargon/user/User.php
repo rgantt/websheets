@@ -26,7 +26,7 @@ abstract class User {
 	}
 	
 	private function doRead( $field ) {
-		$result = $this->db->fetchObject( $this->db->query( 'select '.$field.' from '.$this->prefix.'_user where user=\''.$this->user.'\' and pass=\''.$this->pass.'\'' ) );
+		$result = $this->db->query( 'select '.$field.' from '.$this->prefix.'_user where user=\''.$this->user.'\' and pass=\''.$this->pass.'\'' )->fetchObject();
 		return $result->$field;
 	}
 	

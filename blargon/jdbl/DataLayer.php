@@ -31,24 +31,6 @@ class DataLayer {
 		$this->driverInstance = $conn;
 	}
 	
-	/**
-	 * Uses japha reflection to create a new instance of the database driver
-	 * class.
-	 *
-	 * @throws DblException When there is an error creating the driver
-	 * @param driverName the Classname of the driver
-	 */
-	function createDriver( $driverName ) {
-		// don't call autoload if we can't find it
-		if( class_exists( $driverName ) ) {
-			$cls = _Class::forName( $driverName );
-			$ct = $cls->getConstructor();
-			$this->driverInstance = $ct->newInstance();
-		} else {
-			throw new DblException('Could not create a new instance of the database driver');
-		}
-	}
-	
 	function driverInfo() {
 		return $this->driverInstance->driver_info();
 	}

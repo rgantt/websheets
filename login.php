@@ -5,15 +5,15 @@ use blargon\factory\ConfigFactory;
 use blargon\factory\DblFactory;
 
 require_once dirname(__FILE__).'/config.php';
-require_once dirname(__FILE__).'/global.php';
 
+$db = DblFactory::getConn();
+ConfigFactory::setDb( $db );
 $config = ConfigFactory::getConfig();
 $lang = new Language( News::getClientLanguage(), 'login' );
-$db = DblFactory::getConn();
 
 if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 	$result = $db->query('SELECT id, pass FROM '.$config->get('prefix').'_user WHERE user=\''.$_POST['user'].'\'')->fetchObject();
-	if( $db->numRows( $db->query( 'select * from '.$config->get('prefix').'_attempts where userId=\''.$result->id.'\'') ) >= 5 ) {
+	if( $db->query( 'select * from '.$config->get('prefix').'_attempts where userId=\''.$result->id.'\'')->rowCount() >= 5 ) {
 		header( 'Location: login.php?error='.$lang->message( 'general', 'locked' ).'.' );
 		die();
 	}

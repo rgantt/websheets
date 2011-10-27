@@ -21,33 +21,27 @@ class Comments extends Display {
 	 *
 	 * @return String The HTML of the list
 	 */
-	function viewPosts()
-	{
-		$trueComs = $this->db->numRows( $this->pqh->execute( 'viewPostsComments', array(), 'trueComs' ) );
+	function viewPosts() {
+		$trueComs = $this->pqh->execute( 'viewPostsComments', array(), 'trueComs' )->fetchObject();
 		$max = $this->config->get('numPosts');
 		$getPosts = $this->pqh->execute( 'viewPostsComments', array(), 'getPosts' );		
 		
 		$content = '';
-		while( $post = $this->db->fetchObject( $getPosts ) )
-		{
-			$comCount = $this->db->numRows( $this->pqh->execute( 'viewPostsComments', array( $post->id ), 'comCount' ) );
+		while( $post = $getPosts->fetchObject() ) {
+			$comCount = $this->pqh->execute( 'viewPostsComments', array( $post->id ), 'comCount' )->rowCount();
 			$content .= "<tr>\n\t<td class=\"listTableCell\">".$post->id."</td>\n\t\t<td class=\"listTableCell\"><a href=\"index.php?go=comments&page=view&postid=".$post->id."\">".$post->subject."</a></td>\n\t\t<td class=\"listTableCell\">".$comCount."</td>\n\t</tr>";
 		}
-		
 		$replacer = $this->template->setMethod( 'viewPosts' );
 		$replacer->addVariable( 'listPosts', $content );
 		return $this->template->createViewer( $replacer );
 	}
 	
-	function isBanned( $ip )
-	{
-		return $this->db->numRows( $this->db->query('select id from '.$this->config->get('prefix').'_banned where addr=\''.$ip.'\'') );
+	function isBanned( $ip ) {
+		return $this->db->query('select id from '.$this->config->get('prefix').'_banned where addr=\''.$ip.'\'')->rowCount();
 	}
 	
-	function ban()
-	{
-		switch( $_GET['type'] )
-		{
+	function ban() {
+		switch( $_GET['type'] ) {
 			case 1:
 				$this->db->query('insert into '.$this->config->get('prefix').'_banned ( addr ) values ( \''.$_GET['ip'].'\' )');
 				return 'ip banned.';
@@ -59,26 +53,20 @@ class Comments extends Display {
 		}
 	}
 	
-	function doRed( $text )
-	{
+	function doRed( $text ) {
 		return '<span style="color:red;">'.$text.'</span>';
 	}
 
-	function doGreen( $text )
-	{
+	function doGreen( $text ) {
 		return '<span style="color:green;">'.$text.'</span>';
 	}
 	
-	function ip()
-	{
+	function ip() {
 		$content = 'The status of this ip is: ';
-		if( $this->isBanned( $_GET['ip'] ) )
-		{
+		if( $this->isBanned( $_GET['ip'] ) ) {
 			$content .= $this->doRed('banned.');
 			$content .= '<p/><a href="index.php?go=comments&page=ban&type=0&ip='.$_GET['ip'].'">unban this ip</a>';
-		}
-		else
-		{
+		} else {
 			$content .= $this->doGreen('allowed.');
 			$content .= '<p/><a href="index.php?go=comments&page=ban&type=1&ip='.$_GET['ip'].'">ban this ip</a>';
 		}
@@ -91,18 +79,13 @@ class Comments extends Display {
 	 *
 	 * @return String The HTML list of the comments
 	 */
-	function view()
-	{
+	function view() {
 		$getComments = $this->pqh->execute( 'viewComment', array( $_GET['postid'] ) );
 		$content .= "<table>";
-		if( $this->db->numRows( $getComments ) == 0)
-		{
+		if( $getComments->rowCount() == 0) {
 			return $this->lang->message( 'doComments', 'noComments' );
-		} 
-		else 
-		{
-			while( $comment = $this->db->fetchObject( $getComments ) )
-			{
+		} else {
+			while( $getComments->fetchObject() ) {
 				$content .= '<tr><td><a href="index.php?go=comments&page=edit&postid='.$_GET['postid'].'&id='.$comment->id.'">'.$comment->subject.'</a> (<a href="index.php?go=comments&page=ip&ip='.$comment->addr.'">'.$comment->addr.'</a>)</td></tr>';
 			}
 		}
@@ -115,10 +98,15 @@ class Comments extends Display {
 	 *
 	 * @return String An HTML form with the fields filled in with the comment data
 	 */
-	function edit()
-	{
-		$coms = $this->db->fetchObject( $this->pqh->execute( 'editComment', array( $_GET['id'] ) ) );
-		$vars = array( 'post' => $coms->post, 'id' => $coms->id, 'userName' => $coms->userName, 'subject' => $coms->subject, 'comment' => ereg_replace( '<br />', '\n', $coms->comment ) );
+	function edit() {
+		$coms = $this->pqh->execute( 'editComment', array( $_GET['id'] ) )->fetchObject();
+		$vars = array( 
+			'post' => $coms->post, 
+			'id' => $coms->id, 
+			'userName' => $coms->userName, 
+			'subject' => $coms->subject, 
+			'comment' => preg_replace( '<br />', '\n', $coms->comment ) 
+		);
 		$replacer = $this->template->setMethod( 'edit' );
 		$replacer->addVariables( $vars );
 		return $this->template->createViewer( $replacer );
@@ -132,15 +120,11 @@ class Comments extends Display {
 	 *
 	 * @return String A message regarding the successful deletion or edit of the comment
 	 */
-	function save()
-	{
-		if($_POST['keep'] == 'keep')
-		{
+	function save() {
+		if( $_POST['keep'] == 'keep' ) {
 			$this->pqh->execute( 'saveComment', array( $_POST['subject'], nl2br( $_POST['comments'] ), $_GET['id'] ), 'update' );
 			return $this->lang->success( 'doComments', 'edited' );
-		} 
-		else 
-		{
+		} else {
 			$this->pqh->execute( 'saveComment', array( $_GET['id'] ), 'delete' );
 			return $this->lang->success( 'doComments', 'deleted' );	
 		}

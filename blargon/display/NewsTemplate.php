@@ -17,10 +17,8 @@ class NewsTemplate extends Display {
 	 *
 	 * @return string The main template of the blargon system
 	 */
-	function main()
-	{
-		$temp = $this->db->fetchObject( $this->pqh->execute( 'mainTemplate' ) );
-		
+	function main() {
+		$temp = $this->pqh->execute( 'mainTemplate' )->fetchObject();
 		$replacer = $this->template->setMethod( 'mainTemplate' );
 		$replacer->addVariable( 'template', preg_replace( '<br />', '', $temp->template ) );
 		return $this->template->createViewer( $replacer );
@@ -34,10 +32,8 @@ class NewsTemplate extends Display {
 	 *
 	 * @return string A confirmation message notifying you of your template save
 	 */
-	function saveMain()
-	{
-		if(isset($_POST['submit']) && $_POST['submit'])
-		{
+	function saveMain() {
+		if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 			$this->pqh->execute( 'saveMainTemplate', array( $_POST['template'] ) );
 			return $this->lang->success( 'saveMainTemplate', 'default' ) . '<br><a href="index.php">Back to Control Panel</a>';
 		}
@@ -51,25 +47,19 @@ class NewsTemplate extends Display {
 	 *
 	 * @return string Either the current users template, or the global one
 	 */
-	function user()
-	{
+	function user() {
 		$templateGet = $this->pqh->execute( 'userTemplate', array( $this->user->getId() ), 'templateGet' );
-		if( $this->db->numRows( $templateGet ) == 0 )
-		{
-			if( isset( $_GET['make'] ) && ( $_GET['make'] == 'true' ) )
-			{
+		if( $this->db->numRows( $templateGet ) == 0 ) {
+			if( isset( $_GET['make'] ) && ( $_GET['make'] == 'true' ) ) {
 				$this->pqh->execute( 'userTemplate', array( $userId), 'insert' );
 				$templateGet = $this->pqh->execute( 'userTemplate', array( $userId ), 'templateGetInner' );
-			}
-			else
-			{
+			} else {
 				return $this->lang->message( 'userTemplate', 'noneExist' ).'<center><br/><a href="index.php?go=template&page=user&make=true">Create Custom Template</a><br/><a href="index.php?go=template&page=main">Edit Main Template</a></center>';
 			}
 		}
-		$temp = $this->db->fetchObject( $templateGet );
-		
+		$temp = $templateGet->fetchObject();
 		$replacer = $this->template->setMethod( 'userTemplate' );
-		$replacer->addVariable( 'template', eregi_replace( '<br />', '', $temp->template ) );
+		$replacer->addVariable( 'template', preg_replace( '<br />', '', $temp->template ) );
 		return $this->template->createViewer( $replacer );
 	}
 
@@ -79,8 +69,7 @@ class NewsTemplate extends Display {
 	 *
 	 * @return string A confirmation message regarding your saved template
 	 */
-	function saveUser()
-	{
+	function saveUser() {
 		$this->pqh->execute( 'saveUserTemplate', array( $_POST['template'], $this->user->getId() ) );
 		return $this->lang->success( 'saveUserTemplate', 'default' ) . '<br><a href="index.php">Back to Control Panel</a>';
 	}

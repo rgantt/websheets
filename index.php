@@ -10,9 +10,9 @@ use blargon\factory\ConfigFactory;
 use blargon\user\UserStatus;
 
 require_once dirname(__FILE__).'/config.php';
-require_once dirname(__FILE__).'/global.php';
 
 $db = DblFactory::getConn();
+ConfigFactory::setDb( $db );
 
 // is this language stuff really necessary?
 $language = News::getClientLanguage();
