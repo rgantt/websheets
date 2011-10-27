@@ -19,7 +19,6 @@ abstract class Display {
 	protected $lang;
 	protected $template;
 	protected $language;
-	private $templateName;
 	
 	/**
 	 * Initializes the database connection, and the configuration connections,
@@ -39,7 +38,6 @@ abstract class Display {
 			// login as a dummy user who is only able to see news
 			$this->user = '';
 		}
-		$this->templateName = $this->db->query("select value from ".$this->config->get('prefix')."_config where entry='theme'")->fetchObject()->value;
 		$this->init( $lang );
 	}
 	
@@ -52,7 +50,7 @@ abstract class Display {
 	public function init( $lang ) {
 		$this->language = $lang;
 		$this->pqh = new PreparedQueryHandler( get_class( $this ), $this->config->get('prefix') );
-		$this->template = new TemplateWrapper( $this->templateName );
+		$this->template = new TemplateWrapper("templates");
 		$this->template->setClass( get_class( $this ) );
 		$this->lang = new Language( $lang, get_class( $this ) );
 	}

@@ -10,7 +10,7 @@ class Language {
 	
 	public function __construct( $requestLang, $class ) {
 		$class = end( explode( '\\', $class ) );
-		require dirname(__FILE__).'/../../language/'.$requestLang.'/'.strtolower( $class ).'.php';
+		require dirname(__FILE__).'/../../../include/language/'.$requestLang.'/'.strtolower( $class ).'.php';
 		$this->userLang = $requestLang;
 		$this->class = $class;
 		$this->lang = $lang;

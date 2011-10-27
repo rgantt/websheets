@@ -45,7 +45,7 @@ if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 <html>
 	<head>
 		<title><?php echo $config->get('siteName')?></title>
-		<link rel="stylesheet" href="templates/<?php echo $config->get('theme');?>/style/shell.css" type="text/css">
+		<link rel="stylesheet" href="templates/style/shell.css" type="text/css">
 	</head>
 	<body class="loginBody">
 		<table height="100%" width="100%">
@@ -54,7 +54,7 @@ if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 					<form action="login.php" method="post">
 						<table class="loginTable" align="center">
 							<tr>
-								<td align="center" colspan="3"><img src="templates/<?php echo $config->get('theme');?>/images/logo_front.jpg"/></td>
+								<td align="center" colspan="3"><img src="templates/images/logo_front.jpg"/></td>
 							</tr>
 							<tr>
 								<td class="loginCell"><?php echo $lang->message( 'general', 'user' );?>:</td>

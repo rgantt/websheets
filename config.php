@@ -1,5 +1,6 @@
 <?php
 use blargon\factory\DblFactory;
+use blargon\factory\ConfigFactory;
 use blargon\util\Configuration;
 
 /** Database configuration directives */
@@ -19,15 +20,15 @@ $prefix = $connect['prefix'];
 /** Sedai configuration directives */
 
 $sedai = array(
-	'includeDir' => 'templates', // all templates will be loaded from this directory by default
+	'includeDir' => 'include/view', // all templates will be loaded from this directory by default
 	'format' => '{@},{obj},{->},{key},{;}' // sets the parsing format to check for calls like @obj->key
 );
 
 /** Set up the class autoloader */
 
 spl_autoload_register( function ( $class ) {
-	if( file_exists( dirname(__FILE__)."/{$class}.php" ) ) {
-		include_once dirname(__FILE__)."/{$class}.php";
+	if( file_exists( dirname(__FILE__)."/lib/{$class}.php" ) ) {
+		include_once dirname(__FILE__)."/lib/{$class}.php";
 	} else {
 		//echo "could not find {$class} in websheets load path";
 	}
@@ -41,12 +42,5 @@ require_once dirname(__FILE__).'/../japha/japha.php';
 
 // just got with MySQL for now
 DblFactory::load( $connect );
-
-/** uhhh */
-
-function installedLanguage( $lang ) {
-	if( is_dir( 'language/'.$lang ) ) {
-		return true;
-	}
-	return false;
-}
+$db = DblFactory::getConn();
+ConfigFactory::setDb( $db );

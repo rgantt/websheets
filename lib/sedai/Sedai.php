@@ -10,13 +10,11 @@ class Sedai {
 	protected $include;
 	protected $key;
 	public $rpl;
-	private $templateName;
 	
 	public function __construct( $name ) {
 		global $sedai;
 		$this->format = $sedai['format'];
 		$this->include = $sedai['includeDir'];
-		$this->templateName = $name;
 	}
 	
 	public function setClass( $template ) {
@@ -41,7 +39,7 @@ class Sedai {
 	} 
 	
 	public function templateParser() {
-		$prs = new SedaiParser( $this->include.'/'.$this->templateName.'/display', $this->template.'.php', $this->key );
+		$prs = new SedaiParser( $this->include.'/display', $this->template.'.php', $this->key );
 		$prs->setFormat( $this->getFormat() );
 		return $prs;
 	}

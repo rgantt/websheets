@@ -28,27 +28,6 @@ class News extends Display {
 		return $this->db->numRows( $template );
 	}
 	
-	public static function getClientLanguage() {
-		global $config;
-		$browserLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-		$pos = strpos( $browserLanguage, ';' );
-		if ( $pos > 0 ) {
-			$browserLanguage = substr( $browserLanguage, 0, $pos );
-		}
-		$languages = explode( ',', $browserLanguage );
-		$language = false;
-		foreach( $languages as $value ) {
-			if( \installedLanguage( $value ) ) {
-				$language = $value;
-				break;
-			}
-		}
-		if( !is_string( $language ) ) {
-			$language = $config->get('language');
-		}
-		return $language;
-	}
-	
 	/**
 	 * Selects the appropriate template for the current user. If per-user
 	 * templates are enabled, this method will first extract the user id from
