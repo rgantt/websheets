@@ -18,8 +18,8 @@ abstract class User {
 	private $prefix;
 	
 	public function __construct( $name, $pass ) {
-		global $prefix;
-		$this->prefix = $prefix;
+		global $connect;
+		$this->prefix = $connect['prefix'];
 		$this->db = DblFactory::getConn();
 		$this->user = $name;
 		$this->pass = $pass;

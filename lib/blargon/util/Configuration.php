@@ -15,8 +15,8 @@ class Configuration {
 	}
 	
 	public function hardCache() {
-		global $prefix, $language, $version, $sedai;
-		$this->cache['prefix'] = $prefix;
+		global $connect, $language, $version, $sedai;
+		$this->cache['prefix'] = $connect['prefix'];
 		$this->cache['language'] = $language;
 		$this->cache['version'] = $version;
 		$this->cache['template_dir'] = $sedai['includeDir'];

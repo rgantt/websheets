@@ -4,14 +4,12 @@ namespace blargon\lang;
 use blargon\display\ConfigFactory;
 
 class Language {
-	protected $userLang;
 	protected $lang;
 	protected $class;
 	
-	public function __construct( $requestLang, $class ) {
+	public function __construct( $class ) {
 		$class = end( explode( '\\', $class ) );
-		require dirname(__FILE__).'/../../../include/language/'.$requestLang.'/'.strtolower( $class ).'.php';
-		$this->userLang = $requestLang;
+		require dirname(__FILE__).'/../../../include/language/'.strtolower( $class ).'.php';
 		$this->class = $class;
 		$this->lang = $lang;
 		$this->init();
@@ -23,7 +21,7 @@ class Language {
 				$this->$key = $value;
 			}
 		} else {
-			throw new Exception('Could not load language information from language/'.$this->userLang.'/'.strtolower( $this->class ).'.php, the file does not contain a language array.');
+			throw new Exception('Could not load language information from language/'.strtolower( $this->class ).'.php, the file does not contain a language array.');
 		}
 	}
 	
@@ -48,7 +46,7 @@ class Language {
 	}
 	
 	public function replaceGlobals( $text ) {
-		require 'language/'.$this->userLang.'/global.php';
+		require 'language/global.php';
 		if( is_array( $global ) ) {
 			foreach( $global as $var ) {
 				foreach( $var as $key => $value ) {
@@ -56,7 +54,7 @@ class Language {
 				}
 			}
 		} else {
-			throw new Exception('Could not load language information from language/'.$this->userLang.'/global.php, the file does not contain a language array.');
+			throw new Exception('Could not load language information from language/global.php, the file does not contain a language array.');
 		}
 		return $text;
 	}

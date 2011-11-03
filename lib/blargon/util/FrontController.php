@@ -24,7 +24,7 @@ class FrontController {
 		// Class will be in the format of <something>Command, like CategoryCommand
 		$class = "blargon\command\\".ucfirst( ( isset( $_GET['go'] ) && ( $_GET['go'] != null ) ) ? $_GET['go'] : 'news' ).'Command';
 		$method = ( isset( $_GET['page'] ) ? $_GET['page'] : 'show' );
-		if( !$_GET['go'] ) $method = 'edit'; // default page is news::edit
+		if( !isset( $_GET['go'] ) || !$_GET['go'] ) $method = 'edit'; // default page is news::edit
 		
 		$command = new $class( $method, $stack, $language );
 		$command->execute();

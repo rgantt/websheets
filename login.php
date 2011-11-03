@@ -9,7 +9,7 @@ require_once dirname(__FILE__).'/config.php';
 $db = DblFactory::getConn();
 ConfigFactory::setDb( $db );
 $config = ConfigFactory::getConfig();
-$lang = new Language( News::getClientLanguage(), 'login' );
+$lang = new Language( "en-us", 'login' );
 
 if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 	$result = $db->query('SELECT id, pass FROM '.$config->get('prefix').'_user WHERE user=\''.$_POST['user'].'\'')->fetchObject();
@@ -45,7 +45,7 @@ if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 <html>
 	<head>
 		<title><?php echo $config->get('siteName')?></title>
-		<link rel="stylesheet" href="templates/style/shell.css" type="text/css">
+		<link rel="stylesheet" href="include/view/style/shell.css" type="text/css">
 	</head>
 	<body class="loginBody">
 		<table height="100%" width="100%">
@@ -54,7 +54,7 @@ if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 					<form action="login.php" method="post">
 						<table class="loginTable" align="center">
 							<tr>
-								<td align="center" colspan="3"><img src="templates/images/logo_front.jpg"/></td>
+								<td align="center" colspan="3"><img src="include/view/images/logo_front.jpg"/></td>
 							</tr>
 							<tr>
 								<td class="loginCell"><?php echo $lang->message( 'general', 'user' );?>:</td>

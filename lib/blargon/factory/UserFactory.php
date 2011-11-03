@@ -9,7 +9,8 @@ use blargon\user\Administrator;
 
 class UserFactory {
 	public static function getUser( $name, $password ) {
-		global $prefix;
+		global $connect;
+		$prefix = $connect['prefix'];
 		if( $name == NULL ) {
 			return new Reader( null, null );
 		} else {

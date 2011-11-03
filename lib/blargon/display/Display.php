@@ -29,29 +29,23 @@ abstract class Display {
 	 * resides in an abstract class and the preparedQueryHandler depends on the fact
 	 * that it can derive the name of the class at run time and load those queries.
 	 */
-	public function __construct( $lang ) {
+	public function __construct() {
 		$this->db = DblFactory::getConn();
 		$this->config = ConfigFactory::getConfig();
+		/** STRONG AUTHENTICATION */
 		if( isset( $_COOKIE['uName'] ) && isset( $_COOKIE['pass'] ) ) {
 			$this->user = UserFactory::getUser( $_COOKIE['uName'], md5( $_COOKIE['pass'] ) );
 		} else {
 			// login as a dummy user who is only able to see news
 			$this->user = '';
 		}
-		$this->init( $lang );
+		$this->init();
 	}
 	
-	/**
-	 * Abstract method that must be defined with a call to the language
-	 * and prepared query handler initialization systems.
-	 *
-	 * @abstract
-	 */
-	public function init( $lang ) {
-		$this->language = $lang;
+	public function init() {
 		$this->pqh = new PreparedQueryHandler( get_class( $this ), $this->config->get('prefix') );
 		$this->template = new TemplateWrapper("templates");
 		$this->template->setClass( get_class( $this ) );
-		$this->lang = new Language( $lang, get_class( $this ) );
+		$this->lang = new Language( get_class( $this ) );
 	}
 }

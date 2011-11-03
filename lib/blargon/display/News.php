@@ -24,8 +24,7 @@ class News extends Display {
 	 * @return int The number of templates that the user currently has defined
 	 */
 	function userHasTemplate( $id ) {
-		$template = $this->pqh->execute( 'userHasTemplate', array( $this->config->get('prefix'), $id ) );
-		return $this->db->numRows( $template );
+		return $this->pqh->execute( 'userHasTemplate', array( $this->config->get('prefix'), $id ) )->rowCount();
 	}
 	
 	/**
@@ -42,9 +41,9 @@ class News extends Display {
 	function loadTemplate( $userName ) {
 		$id = $this->pqh->execute( 'loadTemplate', array( $userName ), 'getUserId' )->fetchObject();
 		if( ( $this->config->get('perUserTemplates') == 'yes' ) && $this->userHasTemplate( $id->id ) ) {
-			$temp = $this->db->fetchObject( $this->pqh->execute( 'loadTemplate', array( $this->config->get('prefix'), $id->id ), 'loadUserTemplate' ) );
+			$temp = $this->pqh->execute( 'loadTemplate', array( $this->config->get('prefix'), $id->id ), 'loadUserTemplate' )->fetchObject();
 		} else {
-			$temp = $this->db->fetchObject( $this->pqh->execute( 'loadTemplate', array( $this->config->get('prefix') ), 'loadDefaultTemplate' ) );
+			$temp = $this->pqh->execute( 'loadTemplate', array( $this->config->get('prefix') ), 'loadDefaultTemplate' )->fetchObject();
 		}
 		return $temp->template;
 	}
@@ -69,6 +68,8 @@ class News extends Display {
 	 * @return array Array containing the array of emotes and that of images
 	 */
 	function loadEmotes() {
+		$emotes = array();
+		$images = array();
 		$query = $this->pqh->execute( 'loadEmotes' );
 		while( $row = $query->fetchObject() ) {
 			$emotes[] = $row->emote;
@@ -168,9 +169,14 @@ class News extends Display {
 		}
 		
 		if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
-			$_POST['newsMessage'] = str_replace( '<br>', '<br/>', $_POST['newsMessage'] );
-			$_POST['newsMessage'] = str_replace( '<p>', '<p/>', $_POST['newsMessage'] );
-			$this->pqh->execute( 'buildNews', array( $_POST['time'], $_POST['subject'], $_POST['user'], $_POST['mood'], $_POST['listeningTo'], $_POST['catGet'], $_POST['newsMessage'] ) );
+			$this->pqh->execute( 'buildNews', array( 
+					$_POST['time'], 
+					$_POST['subject'], 
+					$_POST['user'], 
+					$_POST['catGet'], 
+					addslashes( $_POST['newsMessage'] ) 
+				) 
+			);
 			return $this->lang->success( 'buildNews', 'default' );
 		} else {
 			return $this->lang->failure( 'buildNews', 'default' );
@@ -193,16 +199,16 @@ class News extends Display {
 	function add() {
 		$catList = '';
 		$getCats = $this->pqh->execute( 'addNews' );
-		$mood = ( $this->config->get( 'moodEntry' ) == 'yes' ) ? '<tr><td>Mood:</td><td><input type="text" name="mood" style="width:290px;" class="formInput"/></td></tr>' : '<input type="hidden" name="mood" value="Normal"/>';
-		$listen = ( $this->config->get( 'listeningTo' ) == 'yes' ) ? '<tr><td>Currently Listening To:</td><td><input type="text" name="listeningTo" style="width:290px;" class="formInput"/></td></tr>' : '<input type="hidden" name="listeningTo" value="Nothing"/>';
 		while( $cats = $getCats->fetchObject() ) {
 				$catList .= "<option value=\"".$cats->id."\">".$cats->name."</option>";
 		}
 		if( $getCats->rowCount() == 0 ) {
 			return $this->lang->message( 'addNews', 'addCats' );
 		} else {
-			$vars = array( 'time' => time(), 'catList' => $catList, 'mood' => $mood, 'listeningTo' => $listen );
-			
+			$vars = array( 
+				'time' => time(), 
+				'catList' => $catList 
+			);
 			$replacer = $this->template->setMethod( 'addNews' );
 			$replacer->addVariables( $vars );
 			return $this->template->createViewer( $replacer );
