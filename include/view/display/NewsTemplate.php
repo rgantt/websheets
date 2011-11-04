@@ -1,7 +1,7 @@
 <?php
 $template['mainTemplate'] = <<< END
 <form name="editTemplate" method="post" action="index.php?go=template&page=saveMain">
-	<table width="100%">
+	<table>
 		<tr>
 			<td align="center">@lang->newsPostTemplate;</td>
 		</tr>
@@ -21,10 +21,14 @@ $template['mainTemplate'] = <<< END
 			</td>
 		</tr>
 		<tr>
-			<td align="center"><textarea class="formInput" name="template" style="width:450px;" rows="15">@var->template;</textarea></td>
+			<td align="center">
+				<textarea class="formInput" name="template" rows="15">@var->template;</textarea>
+			</td>
 		</tr>
 		<tr>
-			<td align="center"><input class="formInput" type="submit" name="submit" value="@lang->editTemplate;"></td>
+			<td align="center">
+				<input class="formInput" type="submit" name="submit" value="@lang->editTemplate;" />
+			</td>
 		</tr>
 	</table>
 </form>
@@ -56,10 +60,14 @@ $template['userTemplate'] = <<< END
 			</td>
 		</tr>
 		<tr>
-			<td align="center"><textarea class="formInput" name="template" style="width:90%; border:1px solid #000000;" rows="15">@var->template;</textarea></td>
+			<td align="center">
+				<textarea class="formInput" name="template" rows="15">@var->template;</textarea>
+			</td>
 		</tr>
 		<tr>
-			<td align="center"><input class="formInput" type="submit" name="submit" value="Edit Template"></td>
+			<td align="center">
+				<input class="formInput" type="submit" name="submit" value="Edit Template">
+			</td>
 		</tr>
 	</table>
 </form>

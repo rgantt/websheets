@@ -5,7 +5,8 @@ require_once dirname(__FILE__).'/tablesQuery.php';
 require_once dirname(__FILE__).'/insertsQuery.php';
 
 function doAction() {
-	global $lang, $config, $db, $q, $inserts, $prefix;
+	global $lang, $config, $db, $q, $inserts, $connect;
+	$prefix = $connect['prefix'];
 	$errors = 0;
 	
 	$db = DblFactory::getConn();
@@ -24,14 +25,7 @@ function doAction() {
 	
 	foreach( $inserts as $key => $value ) {
 		$qu = $db->query( str_replace( '{0}', $prefix, $value ) );
-		if( $qu ) {
-			if( strlen( $key ) > 1 ) {
-				$content .= greenIt( ucfirst( $key ).$lang->message( 'step6', 'wasAdded' ) ).'<br/>';
-			}
-		} else {
-			if( strlen( $key ) > 1 ) {
-				$content .= redIt( ucfirst( $key ).$lang->message( 'step6', 'wasNot' ) ).'<br/>';
-			}
+		if( !$qu ) {
 			$errors++;
 		}
 	}

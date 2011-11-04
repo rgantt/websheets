@@ -16,8 +16,6 @@ create table {0}_category (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
 	name CHAR(30), 
 	image CHAR(40), 
-	homePage CHAR(40), 
-	shortName CHAR(20),
 	parent int(3) not null default '0'
 )
 END;
@@ -30,8 +28,7 @@ create table {0}_user (
 	email CHAR(60), 
 	alias CHAR(20), 
 	avatar CHAR(50), 
-	userLevel INT(1), 
-	title varchar(255) not null default 'Bloggist' 
+	userLevel INT(1) 
 )
 END;
 
@@ -58,9 +55,7 @@ create table {0}_news (
 	time CHAR(50), 
 	user CHAR(20), 
 	cat CHAR(30), 
-	news TEXT, 
-	mood varchar(255) not null default 'Normal', 
-	listeningTo varchar(255) not null default 'Nothing' 
+	news TEXT 
 )
 END;
 
@@ -69,15 +64,6 @@ create table {0}_config (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
 	entry char(255), 
 	value char(255) 
-)
-END;
-
-$q['board'] = <<< END
-create table {0}_board (
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-	user INT(11), 
-	entry TEXT, 
-	time varchar(50) 
 )
 END;
 

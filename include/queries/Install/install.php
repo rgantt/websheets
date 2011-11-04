@@ -55,9 +55,7 @@ create table {0}_news (
 	time CHAR(50), 
 	user CHAR(20), 
 	cat CHAR(30), 
-	news TEXT, 
-	mood varchar(255) not null default 'Normal', 
-	listeningTo varchar(255) not null default 'Nothing' 
+	news TEXT 
 )
 END;
 
@@ -69,15 +67,6 @@ create table {0}_config (
 )
 END;
 
-$q['board'] = <<< END
-create table {0}_board (
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-	user INT(11), 
-	entry TEXT, 
-	time varchar(50) 
-)
-END;
-
 $q['attempts'] = <<< END
 create table {0}_attempts (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
@@ -86,3 +75,4 @@ create table {0}_attempts (
 	addr varchar(32) 
 )
 END;
+?>

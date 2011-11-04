@@ -4,7 +4,7 @@ namespace blargon\command;
 use blargon\display\Users;
 
 class UserCommand extends Command {
-	public function init( $lang ) {
-		$this->class = new Users( $lang );
+	public function init() {
+		$this->class = new Users();
 	}
 }

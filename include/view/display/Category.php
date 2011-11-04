@@ -1,10 +1,7 @@
 <?php
 $template['addCategory'] = <<<END
 <form method="post" action="index.php?go=category&page=save">
-	<table cellpadding="5" cellspacing="0" border="0">
-		<tr>
-			<td colspan="2" align="center">@lang->createNewCategory;</td>
-		</tr>
+	<table>
 		<tr>
 			<td>@lang->newCategoryName;:</td>
 			<td align="center"><input class="formInput" type="text" length="20" maxlength="30" name="newCat"></td>
@@ -24,22 +21,10 @@ END;
 
 $template['editCategory'] = <<< END
 <form method="post" action="index.php?go=category&page=doSave">
-	<table cellpadding="5" cellspacing="0" border="0">
+	<table>
 		<tr>
 			<td>@lang->categoryName;:</td>
-			<td><input class="formInput" type="text" length="20" maxlength="40" name="newCatName" value="@var->name;"/><input class="formInput" type="hidden" name="catName" value="@var->name;"/></td>
-		</tr>
-		<tr>
-			<td>@lang->categoryAlias;:</td>
-			<td><input class="formInput" type="text" length="20" maxlength="40" name="catShortName" value="@var->shortName;"/></td>
-		</tr>
-		<tr>
-			<td>@lang->categoryImage;:</td>
-			<td><input class="formInput" type="text" length="20" maxlength="40" name="catImage" value="@var->image;"/><font style="font-size:9px; color:black;"><br/>@lang->defaultDirectory; @var->siteUrl;@var->installDir;/images/categories/</font></td>
-		</tr>
-		<tr>
-			<td>@lang->categoryHomepage;:</td>
-			<td><input class="formInput" type="text" length="20" maxlength="40" name="catHomePage" value="@var->homePage;"/> <font style="font-size:9px; color:black;"><br/>@lang->forExample; @var->siteUrl;@var->installDir;/yourcat/</font></td>
+			<td><input class="formInput" type="text" name="newCatName" value="@var->name;"/><input class="formInput" type="hidden" name="catName" value="@var->name;"/></td>
 		</tr>
 		<tr>
 			<td>@lang->categoryParent;:</td>

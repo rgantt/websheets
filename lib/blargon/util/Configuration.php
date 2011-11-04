@@ -23,17 +23,17 @@ class Configuration {
 	}
 	
 	public function cache() {
-		$query = $this->db->query( 'select * from '.$this->cache['prefix'].'_config' );
+		$query = $this->db->query( 'select * from '.$this->get('prefix').'_config' );
 		while( $row = $query->fetchObject() ) {
 			$this->cache[ strtolower( $row->entry ) ] = $row->value;
 		}
 	}
 	
-	function set( $name, $value ) {
+	public function set( $name, $value ) {
 		return $this->db->query( 'update '.$this->cache['prefix'].'_config set value = \''.$value.'\' where entry = \''.$name.'\'' );
 	}
 	
-	function get( $name ) {
+	public function get( $name ) {
 		if( isset( $this->cache[ strtolower( $name ) ] ) ) {
 			return $this->cache[ strtolower( $name ) ];
 		}

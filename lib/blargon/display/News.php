@@ -138,36 +138,6 @@ class News extends Display {
 			throw new InvalidDataTypeException( $this->lang->failure( 'buildNews', 'chooseCategory' ) );
 		}
 		
-		$format = array(
-			'b' => 'b@b',
-			'i' => 'i@i',
-			'a' => 'a href="{0}"@a',
-			'ul' => 'span style="text-decoration:underline;"@span',
-			'ol' => 'span style="text-decoration:overline;"@span',
-			'st' => 'span style="text-decoration:strike;"@span',
-			'img' => 'img src="{0}"@img'
-		);
-		
-		/**
-		 * This section replaces all of the formatting keys with their html counterparts -- VERY VERY VERY DIRTY WTF
-		 */
-		foreach( $format as $key => $value ) {
-			$parts = explode( '@', $value );
-			
-			$_POST['newsMessage'] = str_replace( '['.$key.':]', '<'.$parts[0].'>', $_POST['newsMessage'] );
-			$_POST['newsMessage'] = str_replace( '[:'.$key.']', '</'.$parts[1].'>', $_POST['newsMessage'] );
-			
-			if( $key == 'a' && isset( $matches[2][0] ) ) {
-				preg_match_all("/<a href=[\"']?(.*?)[\"']?.*?>(.*?)<\/a>/i", $_POST['newsMessage'], $matches );
-				$_POST['newsMessage'] = str_replace( '<a href="{0}"', '<a href="'.$matches[2][0].'"', $_POST['newsMessage'] );
-			}
-			if( $key == 'img' && isset( $matches[2][0] ) ) {
-				preg_match_all("/<img src=[\"']?(.*?)[\"']?.*?>(.*?)<\/img>/i", $_POST['newsMessage'], $matches );
-				$_POST['newsMessage'] = str_replace( '<img src="{0}"', '<img src="'.$matches[2][0].'"', $_POST['newsMessage'] );
-				$_POST['newsMessage'] = str_replace( '>'.$matches[2][0].'</img>', '/>', $_POST['newsMessage'] );
-			}
-		}
-		
 		if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 			$this->pqh->execute( 'buildNews', array( 
 					$_POST['time'], 

@@ -1,22 +1,24 @@
 <?php
 $template['head'] = <<<END
 <html>
-<head>
-<title>@config->siteName; - @lang->poweredBy; &copy;</title>
-<link rel="stylesheet" href="@config->template_dir;/style/shell.css" type="text/css">
-</head>
-<body style="font-family:arial; background-color:#ffffff; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;">
-<table align="center" cellpadding="0" cellspacing="0" style="font-family:arial; width:640px;">
-<tr>
-<td colspan="2" style="border-bottom:1px dashed #dddddd;" align="center"><img src="@config->template_dir;/images/logo.jpg"/></td>
-</tr>
-<tr>
+	<head>
+		<title>@config->siteName; - @lang->poweredBy; &copy;</title>
+		<link rel="stylesheet" href="@config->template_dir;/style/shell.css" type="text/css">
+	</head>
+	<body>
+		<table align="center">
+			<tr>
+				<td colspan="2"><img src="@config->template_dir;/images/logo.jpg"/></td>
+			</tr>
+			<tr>
 END;
 
 $template['foot'] = <<<END
-</div></td></tr>
-</table>
-</body>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
 </html>
 END;
 

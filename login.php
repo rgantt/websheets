@@ -9,7 +9,7 @@ require_once dirname(__FILE__).'/config.php';
 $db = DblFactory::getConn();
 ConfigFactory::setDb( $db );
 $config = ConfigFactory::getConfig();
-$lang = new Language( "en-us", 'login' );
+$lang = new Language( 'login' );
 
 if( isset( $_POST['submit'] ) && $_POST['submit'] ) {
 	$result = $db->query('SELECT id, pass FROM '.$config->get('prefix').'_user WHERE user=\''.$_POST['user'].'\'')->fetchObject();

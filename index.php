@@ -8,21 +8,19 @@ use blargon\user\UserStatus;
 
 require_once dirname(__FILE__).'/config.php';
 
-// whoa, not actually authenticating here
+/** ROCK-SOLID AUTHENTICATION */
 if( isset( $_COOKIE['uName'] ) ) {
-	$language = "en-us";
-	$include = new Includes( $language );
-	$panel = new Panel( $language );
-	
+	$include = new Includes();
+	$panel = new Panel();
 	$messageStack = new MessageStack();
-	
 	$user = new UserStatus();
+	
 	$user->checkStatus( $messageStack );
 	
 	FrontController::setHeader( $include->head() );
 	FrontController::setPanel( $panel->showPanel() );
 	FrontController::setFooter( $include->footer( null ) );
-	FrontController::run( $messageStack, $language );
+	FrontController::run( $messageStack );
 } else {
 	header('Location: login.php');
 }

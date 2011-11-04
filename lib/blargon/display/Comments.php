@@ -81,7 +81,7 @@ class Comments extends Display {
 	 */
 	function view() {
 		$getComments = $this->pqh->execute( 'viewComment', array( $_GET['postid'] ) );
-		$content .= "<table>";
+		$content = "<table>";
 		if( $getComments->rowCount() == 0) {
 			return $this->lang->message( 'doComments', 'noComments' );
 		} else {

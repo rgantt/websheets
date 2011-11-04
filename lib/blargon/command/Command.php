@@ -12,11 +12,11 @@ abstract class Command {
 	protected $class;
 	protected $stack;
 	
-	public function __construct( $method, MessageStack $stack, $language ) {
+	public function __construct( $method, MessageStack $stack ) {
 		$this->method = $method;
 		$this->stack = $stack;
 		$this->page = new StringBuffer();
-		$this->init( $language );
+		$this->init();
 	}
 	
 	public function execute() {
@@ -31,5 +31,5 @@ abstract class Command {
 		return new PageContent( $this->page->toString() );
 	}
 	
-	abstract public function init( $lang );
+	abstract public function init();
 }

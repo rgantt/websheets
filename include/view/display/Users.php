@@ -1,14 +1,14 @@
 <?php
 $template['editUser'] = <<<END
 <form method="post" action="index.php?go=user&page=doEdit">
-	<table cellpadding="4" cellspacing="0" border="0">
+	<table>
 		<tr>
-			<td style="font-size:20px;"><b>@user->user;</b></td>
-			<td style="font-size:12px;"><b>(@lang->userLevel;: @user->level;)</b></td>
+			<td><b>@user->user;</b></td>
+			<td><b>(@lang->userLevel;: @user->level;)</b></td>
 		</tr>
 		<tr>
 			<td>@lang->currentPassword;:</td>
-			<td><input class="formInput" type="password" name="oldPass" value=""/><br/><span style="font-size:9px; color:#ff0000;">@lang->passMustEnter;</span></td>
+			<td><input class="formInput" type="password" name="oldPass" value=""/><br/><span class="warning">@lang->passMustEnter;</span></td>
 		</tr>
 		<tr>
 			<td>@lang->newPassword;:</td>
@@ -37,7 +37,9 @@ $template['editUser'] = <<<END
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"><input class="formInput" type="submit" name="submit" value="@lang->changeUser;"/></td>
+			<td colspan="2" align="center">
+				<input class="formInput" type="submit" name="submit" value="@lang->changeUser;"/>
+			</td>
 		</tr>
 	</table>
 </form>
@@ -47,7 +49,7 @@ $template['addUser'] = <<< END
 @lang->createUser;
 <p/>
 <form name="form" action="index.php?go=user&page=save" method="post">
-	<table cellpadding="5" cellspacing="0" border="0">
+	<table>
 		<tr>
 			<td>@lang->userName;:</td>
 			<td><input class="formInput" type="text" name="newUserName" size="20" maxlength="20" /></td>
@@ -85,7 +87,7 @@ END;
 $template['removeUser'] = <<<END
 @lang->pleaseSelect;<p>
 <form action="index.php?go=user&page=removeSave" method="post">
-	<table cellpadding="5" cellspacing="0" border="0">
+	<table>
 		<tr>
 			<td>@lang->selectUser;:</td>
 			<td>
