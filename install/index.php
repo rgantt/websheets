@@ -3,42 +3,34 @@ require_once '../config.php';
 
 use blargon\lang\Language;
 
-set_include_path('..');
-
-$includes = explode( ',', $_SERVER['HTTP_ACCEPT_LANGUAGE'] );
-$lang = new Language( $includes[0], 'install' );
+$lang = new Language('install');
 
 $page = <<< END
 <html>	
-<head>
-	<title>Blargon v3.4.4</title>
-<link rel="stylesheet" type="text/css" href="style.css"/>
-</head>
-<body>
-<div align="center">
-<img src="../images/logo.jpg" alt="Blargon!" align="center"/>
-</div>
-<p/>
-<table align="center" style="text-align:left; width:500px; border:1px solid #000000;" cellspacing="15">
-	<tr>
-		<td>
+	<head>
+		<title>websheets installation</title>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+	</head>
+	<body>
+			<img src="../include/view/images/logo.jpg" alt="websheets" align="center"/>
+		<p/>
+		<table align="center">
+			<tr>
+				<td>
 END;
 
 if( isset( $_POST['submit'] ) && strtolower( $_POST['submit'] ) == strtolower( $lang->message( 'general', 'previous' ) ) ) {
 	$p = $_GET['page'] - 1;
 } else {
-	$p = $_GET['page'] + 1;
+	$p = isset( $_GET['page'] ) ? $_GET['page'] : 0;
 }
+$num = ( !isset( $_GET['page'] ) ? 1 : $p + 1 );
 
-$num = ( !isset( $_GET['page'] ) ? 1 : $p );
-if( $num == 1 ) {
-	header('Location: index.php?page=1');
-}
-
-$page .= '<form action="index.php?page='.$num.'" method="post">';
+$page .= "<form action=\"?page={$num}\" method=\"post\">";
+echo $p;
 $page .= $lang->message( 'step'.$p, 'introduction' ).'<p/>';
 
-include_once 'step'.$p.'.php';
+@include_once 'step'.$p.'.php';
 if( function_exists('doAction') ) {
 	@list( $content, $noNext, $noPrev ) = doAction();
 	$page .= $content;
