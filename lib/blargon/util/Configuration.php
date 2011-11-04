@@ -24,9 +24,11 @@ class Configuration {
 	
 	public function cache() {
 		$query = $this->db->query( 'select * from '.$this->get('prefix').'_config' );
-		while( $row = $query->fetchObject() ) {
-			$this->cache[ strtolower( $row->entry ) ] = $row->value;
-		}
+		if( $query ) {
+			while( $row = $query->fetchObject() ) {
+				$this->cache[ strtolower( $row->entry ) ] = $row->value;
+			}
+		}	
 	}
 	
 	public function set( $name, $value ) {
