@@ -1,28 +1,28 @@
 <?php
 $template['head'] = <<<END
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<title>@config->siteName; - @lang->poweredBy; &copy;</title>
-		<link rel="stylesheet" href="@config->template_dir;/style/shell.css" type="text/css">
+		<title>@lang->poweredBy;</title>
+		<link rel="stylesheet" href="@config->template_dir;/style/websheets.css" type="text/css" />
+		<link rel="stylesheet" href="@config->template_dir;/style/notifier.css" type="text/css" />
 	</head>
 	<body>
-		<table align="center">
-			<tr>
-				<td colspan="2"><img src="@config->template_dir;/images/logo.jpg"/></td>
-			</tr>
-			<tr>
+		<header>
+			<img src="@config->template_dir;/images/logo.jpg"/>
+		</header>
 END;
 
 $template['foot'] = <<<END
-					</div>
-				</td>
-			</tr>
-		</table>
+
+		</article>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		<script type="text/javascript" src="@config->template_dir;/javascript/notifier.js"></script>
 	</body>
 </html>
 END;
 
 $template['showTime'] = <<<END
-<div style="font-family:verdana; font-size:9px; color:#ff0000;">page generated in @var->time; seconds</div>
+<div id="loadTime">page generated in @var->time; seconds</div>
 END;
 ?>

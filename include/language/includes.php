@@ -1,2 +1,2 @@
 <?php
-$lang['head']['message']['poweredBy'] = 'Powered by Blargon';
+$lang['head']['message']['poweredBy'] = 'websheets';

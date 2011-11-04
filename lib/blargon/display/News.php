@@ -124,6 +124,13 @@ class News extends Display {
 	}
 	
 	/**
+	 * Need a way to get this to show up without displaying the whole template
+	 */
+	public function showAll() {
+		echo $this->replaces('%');
+	}
+	
+	/**
 	 * This is where we actually insert the news article into the database. I'm
 	 * not entirely sure why I have two separate methods doing this.
 	 *
@@ -197,11 +204,16 @@ class News extends Display {
 	 * @return string The page which shows the news entries and their options
 	 */
 	function edit() {
-		$articles = '';
-		$getNews = $this->pqh->execute( 'editNews', array( $this->config->get('numEdit') ) );
+		$articles = "<ul>";
+		$getNews = $this->pqh->execute( 'editNews' );
 		while( $row = $getNews->fetchObject() ) {
-			$articles .= '<tr><td class="listTableCell">'.$row->id.'</td><td class="listTableCell">'.$row->subject.'</a></td><td class="listTableCell">'.$row->user.'</td><td class="listTableCell"><a href="index.php?go=news&page=realEdit&edit='.$row->id.'">EDIT</a> | <a href="index.php?go=news&page=saveEdit&amp;delete=yes&amp;id='.$row->id.'">DELETE</a></td></tr>';
+			$date = date( $this->config->get('timeFormat'), $row->time );
+			$articles .= <<<END
+			
+				<li><a href="?go=news&page=readlEdit&edit={$row->id}">{$row->subject}</a> by {$row->user} on {$date}</li>
+END;
 		}
+		$articles .= "</ul>";
 		
 		$replacer = $this->template->setMethod( 'editNews' );
 		$replacer->addVariable( 'articles', $articles );
@@ -218,7 +230,13 @@ class News extends Display {
 		$row = $this->pqh->execute( 'realEditNews', array( $_GET['edit'] ), 'row' )->fetchObject();
 		$cats = $this->pqh->execute( 'realEditNews', array( $row->cat ), 'cats' )->fetchObject();
 		
-		$vars = array( 'subject' => $row->subject, 'id' => $row->id, 'author' => $row->user, 'category' => $cats->name, 'news' => $row->news );
+		$vars = array( 
+			'subject' => $row->subject, 
+			'id' => $row->id, 
+			'author' => $row->user, 
+			'category' => $cats->name, 
+			'news' => $row->news 
+		);
 		
 		$replacer = $this->template->setMethod( 'realEdit' );
 		$replacer->addVariables( $vars );
@@ -239,10 +257,10 @@ class News extends Display {
 	 */
 	function saveEdit() {
 		if( isset( $_REQUEST['delete'] ) && $_REQUEST['delete'] == 'yes' ) {
-			$delete = $this->pqh->execute( 'saveEditNews', array( $_REQUEST['id'] ), 'delete' );	
+			$this->pqh->execute( 'saveEditNews', array( $_REQUEST['id'] ), 'delete' );	
 			return $this->lang->success( 'saveEdit', 'delete' ). '<br><a href="index.php">Back to Control Panel</a>';
 		} else {
-			$query = $this->pqh->execute( 'saveEditNews', array( $_POST['news'], $_POST['subject'], $_POST['id'] ), 'update' );
+			$this->pqh->execute( 'saveEditNews', array( $_POST['news'], $_POST['subject'], $_POST['id'] ), 'update' );
 			return $this->lang->success( 'saveEdit', 'modify' ) . '<br><a href="index.php">Back to Control Panel</a>';
 		} 
 	}

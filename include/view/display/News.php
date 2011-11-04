@@ -80,19 +80,11 @@ $template['realEdit'] = <<<END
 END;
 
 $template['editNews'] = <<<END
-<table class="listTable">
-	<tr>
-		<td class="listTableHead">@lang->id;</td>
-		<td class="listTableHead">@lang->subject;</td>
-		<td class="listTableHead">@lang->author;</td>
-		<td class="listTableHead">@lang->action;</td>
-	</tr>
-		@var->articles;
-	<tr>
-</table>
+
+				@var->articles;
 END;
 
 $template['replaces'] = <<<END
-<br/>There are no entries yet. If you are a registered user, you may login and <a href="@config->siteUrl;/@config->installDir;/index.php?go=news&page=add">post something</a>
+There are no entries yet. If you are a registered user, you may login and <a href="@config->siteUrl;/@config->installDir;/index.php?go=news&page=add">post something</a>
 END;
 ?>

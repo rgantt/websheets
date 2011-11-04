@@ -5,13 +5,8 @@ use japha\lang\StringBuffer;
 use blargon\factory\DblFactory;
 
 /**
- * $Id: Panel.php,v 1.4 2005/07/11 19:26:13 blargon Exp $
- *
  * Provides a method to display the menu, and render it according to the userLevel
  * of the currently logged in client.
- *
- * @author Ryan Gantt
- * @version $Revision: 1.4 $
  */
 class Panel extends Display {
 	/**
@@ -24,7 +19,7 @@ class Panel extends Display {
 	 * @return String A link to the control panel area specified by url
 	 */
 	function link( $url, $text, $req ) {
-		return ( ( $req <= $this->user->getLevel() ) ? '<li><a href="index.php?go='.$url.'" target="_self">'.$text.'</a></li>' : '' );
+		return ( ( $req <= $this->user->getLevel() ) ? "\t<li><a href=\"?go={$url}\" target=\"_self\">{$text}</a></li>\n" : "" );
 	}
 	
 	/**
@@ -38,8 +33,9 @@ class Panel extends Display {
 	 */
 	function showPanel() {
 		$c = new StringBuffer();
-		$c->append("<ul>");
+		$c->append("\n<ul>\n");
 		$c->append( $this->link( 'news&page=edit', $this->lang->message( 'showPanel', 'articles' ), 1 ) );
+		$c->append( $this->link( 'news&page=add', $this->lang->message( 'showPanel', 'articles:add' ), 1 ) );
 		$c->append( $this->link( 'category&page=add', $this->lang->message( 'showPanel', 'categories' ), 3 ) );
 		$c->append( $this->link( 'template&page=main', $this->lang->message( 'showPanel', 'template' ), 3 ) );
 		$c->append( $this->link( 'user&page=add', $this->lang->message( 'showPanel', 'users:add' ), 2 ) );
@@ -48,7 +44,7 @@ class Panel extends Display {
 		$c->append( $this->link( 'configuration&page=edit', $this->lang->message( 'showPanel', 'configuration' ), 3 ) );
 		$c->append( $this->link( 'user&page=edit', $this->lang->message( 'showPanel', 'profile' ), 1 ) );
 		$c->append( $this->link( 'logout', $this->lang->message( 'showPanel', 'logout' ), 1 ) );
-		$c->append("</ul>");
+		$c->append("\n</ul>\n");
 		
 		$replacer = $this->template->setMethod( 'panel' );
 		$replacer->addVariable( 'menu', $c->toString() );

@@ -2,6 +2,7 @@
 // public function showPanel()
 $lang['showPanel']['message']['home'] 			= 'Home';
 $lang['showPanel']['message']['articles'] 		= 'Articles';
+$land['showPanel']['message']['articles:add']	= 'Write article';
 $lang['showPanel']['message']['categories'] 	= 'Categories';
 $lang['showPanel']['message']['template'] 		= 'Template';
 $lang['showPanel']['message']['users:add'] 		= 'Add User';

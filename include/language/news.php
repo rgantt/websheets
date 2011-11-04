@@ -27,7 +27,7 @@ $lang['addNews']['message']['emoticons']	= 'Emoticons';
 $lang['addNews']['message']['story'] 		= 'Story';
 $lang['addNews']['message']['post'] 		= 'Post';
 
-$lang['editNews']['message']['id'] 		= 'Id';
+$lang['editNews']['message']['time'] 		= 'Date';
 $lang['editNews']['message']['subject']		= 'Subject';
 $lang['editNews']['message']['author'] 		= 'Author';
 $lang['editNews']['message']['action'] 		= 'Action';
@@ -42,9 +42,9 @@ $lang['realEdit']['message']['keep']		= 'Keep';
 $lang['realEdit']['message']['delete']		= 'Delete';
 $lang['realEdit']['message']['editNews']	= 'Edit News';
 
-$lang['addNews']['message']['bold']		= 'Bold';
+$lang['addNews']['message']['bold']			= 'Bold';
 $lang['addNews']['message']['italic']		= 'Italic';
-$lang['addNews']['message']['url']		= 'URL';
+$lang['addNews']['message']['url']			= 'URL';
 $lang['addNews']['message']['underline']	= 'Underline';
 $lang['addNews']['message']['overline']		= 'Overline';
 $lang['addNews']['message']['strike']		= 'Strike';
